@@ -6,12 +6,18 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.AppCompatButton
 import android.view.Menu
 import android.view.MenuItem
+import de.test.malte.kofferpackentrainer.R.id.changeUser
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
+//import kotlinx.android.synthetic.main.main_screen.*
 
 class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    //Button changeUser
+    //item changeUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         nav_view.setNavigationItemSelectedListener(this)
         getSupportActionBar()?.setTitle("USER")
+        //val changeUser: Button = findViewById(R.id.changeUser)
+        changeUser.setOnClickListener{
+            println("You clicked me")
+        }
     }
 
     override fun onBackPressed() {
