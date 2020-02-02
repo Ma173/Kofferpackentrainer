@@ -26,14 +26,15 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kofferpackentrainer 0.1 "
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="@string/version_name_full" />
+
                 <TextView
                     android:id="@+id/subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Benutzer "
-                    android:gravity="end"/>
+                    android:gravity="center"
+                    android:text="@string/springer_name" />
 
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
@@ -43,11 +44,24 @@
     <include layout="@layout/content_main_screen" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/new_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/save_weird"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="#000000"
+        app:srcCompat="@android:drawable/ic_popup_sync" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save_weird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/new_exercise"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#000000"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,10 +6,8 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatButton
 import android.view.Menu
 import android.view.MenuItem
-import de.test.malte.kofferpackentrainer.R.id.changeUser
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
 //import kotlinx.android.synthetic.main.main_screen.*
@@ -24,7 +22,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         setContentView(R.layout.activity_main_screen)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
+        new_exercise.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
@@ -35,11 +33,11 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        getSupportActionBar()?.setTitle("USER")
+        //getSupportActionBar()?.setTitle("USER") MACHT GLAUB ICH GAR NICHTS
         //val changeUser: Button = findViewById(R.id.changeUser)
-        changeUser.setOnClickListener{
-            println("You clicked me")
-        }
+        //changeUser.setOnClickListener{
+        //    println("You clicked me")
+        //}
     }
 
     override fun onBackPressed() {

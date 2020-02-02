@@ -5,5 +5,8 @@
     <string name="nav_header_title">Kofferpackentrainer</string>
     <string name="nav_header_subtitle">zum Ausprobieren und Kombinieren neuer Elemente</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_user">Benutzer</string>
+    <string name="action_user">Springer wechseln</string>
+    <string name="version_name_full">Kofferpackentrainer 0.2</string>
+    <string name="springer_name">Springername</string>
+    <string name="greeting">Willkommen beim KofferpackenTrainer!\nÜber den Aktualisieren-Button unten rechts kann einen neue Übung generiert werden.</string>
 </resources>
