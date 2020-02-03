@@ -1,5 +1,6 @@
 package de.test.malte.kofferpackentrainer
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -14,7 +15,6 @@ import kotlinx.android.synthetic.main.app_bar_main_screen.*
 
 class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    //Button changeUser
     //item changeUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,19 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //changeUser.setOnClickListener{
         //    println("You clicked me")
         //}
-    }
+
+        btn_jump_to_user_settings.setOnClickListener {
+            val intent = Intent(this, UserSettings::class.java)
+            startActivity(intent)
+        }
+
+        }
+
+
+
+    //action_settings = findViewById<button>(R.id.action_settings)
+
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
