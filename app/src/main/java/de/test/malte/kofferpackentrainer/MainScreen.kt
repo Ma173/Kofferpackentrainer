@@ -2,6 +2,7 @@ package de.test.malte.kofferpackentrainer
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -9,8 +10,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
+import kotlinx.android.synthetic.main.content_main_screen.*
+
 //import kotlinx.android.synthetic.main.main_screen.*
 
 class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -22,7 +26,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         setContentView(R.layout.activity_main_screen)
         setSupportActionBar(toolbar)
 
-        new_exercise.setOnClickListener { view ->
+        btn_new_exercise.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
@@ -33,24 +37,31 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        //getSupportActionBar()?.setTitle("USER") MACHT GLAUB ICH GAR NICHTS
-        //val changeUser: Button = findViewById(R.id.changeUser)
-        //changeUser.setOnClickListener{
-        //    println("You clicked me")
-        //}
+
+        //TODO:Hier den Import der Elemente-Textdatei in die Datenstruktur (z.B. HashMap) einbauen
+        //val elementeInStand : HashMap<String,Array<Integer,String,String,Integer>> = hashMapOf<String,List<Int,String,String,Int>()
+        val elementeAusStand: listOf<Object>()
+        dyn.whatever()
 
         btn_jump_to_user_settings.setOnClickListener {
             val intent = Intent(this, UserSettings::class.java)
             startActivity(intent)
         }
 
+        btn_new_exercise.setOnClickListener {
+            val greeting = findViewById<View>(R.id.greeting)
+            greeting.visibility = View.INVISIBLE
+            list_elemente_der_uebung.visibility = View.VISIBLE
+
         }
 
 
 
-    //action_settings = findViewById<button>(R.id.action_settings)
+        }
 
+    fun generateNewExercise() {
 
+    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -76,6 +87,11 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         }
     }
 
+    fun hideText(view: View) {
+        val greeting = findViewById<View>(R.id.greeting)
+        greeting.visibility = View.INVISIBLE
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
@@ -97,11 +113,29 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             R.id.nav_send -> {
 
             }
+            R.id.btn_new_exercise -> {
+
+
+
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 
+    fun onNewExerciseButtonSelected(button: FloatingActionButton) {
+        when(button.id){
+            R.id.btn_new_exercise -> {
+                //btn_new_exercise.setOnClickListener {
+                val greeting = findViewById<View>(R.id.greeting)
+                greeting.visibility = View.INVISIBLE
 
-}
+                }
+            }
+        }
+    }
+
+
+
+
