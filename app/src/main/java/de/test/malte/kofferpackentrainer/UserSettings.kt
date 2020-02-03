@@ -12,7 +12,7 @@ class UserSettings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_settings)
         setSupportActionBar(toolbar)
-        fab.setOnClickListener { view ->
+        switchUser.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }

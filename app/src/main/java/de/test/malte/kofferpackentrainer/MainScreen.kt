@@ -38,10 +38,12 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        //TODO:Hier den Import der Elemente-Textdatei in die Datenstruktur (z.B. HashMap) einbauen
-        //val elementeInStand : HashMap<String,Array<Integer,String,String,Integer>> = hashMapOf<String,List<Int,String,String,Int>()
-        val elementeAusStand: listOf<Object>()
-        dyn.whatever()
+        //TODO: Hier den Import der Elemente-Textdatei in die Datenstruktur (z.B. HashMap) einbauen
+        //TODO: Nachdem alle Elemente importiert sind, können die in den Usersettings angezeigt werden
+        //val elementeInStand : HashMap<String,Array<Integer,String,String,Integer>> = hashMapOf<String,Array<Int,String,String,Int>()
+        //val elementeAusStand: listOf<Object>()
+        //dyn.whatever()
+        //val elementeAusStand = Arraylist()
 
         btn_jump_to_user_settings.setOnClickListener {
             val intent = Intent(this, UserSettings::class.java)
