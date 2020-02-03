@@ -131,7 +131,7 @@ while spruengeInUebung < 10:
       zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
       zufallselement = ((zufallselement,ausStand[zufallselement]))
       weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[4] in gesperrteElemente:
+    while zufallselement[1][4] in gesperrteElemente:
       #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
       zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
       zufallselement = ((zufallselement,ausStand[zufallselement]))
@@ -148,7 +148,7 @@ while spruengeInUebung < 10:
       zufallselement = ((zufallselement,ausSitz[zufallselement]))
       #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement
       weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[4] in gesperrteElemente:
+    while zufallselement[1][4] in gesperrteElemente:
       #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
       zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
       zufallselement = ((zufallselement,ausStand[zufallselement]))
@@ -165,6 +165,10 @@ while spruengeInUebung < 10:
       zufallselement = ((zufallselement,ausBauch[zufallselement]))
       #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
+    while zufallselement[1][4] in gesperrteElemente:
+        #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+        zufallselement = ((zufallselement,ausStand[zufallselement]))
 
   elif letztePosition=="Rücken":
     zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
@@ -177,7 +181,7 @@ while spruengeInUebung < 10:
       zufallselement = ((zufallselement,ausRücken[zufallselement]))
       #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[4] in gesperrteElemente:
+    while zufallselement[1][4] in gesperrteElemente:
         #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
         zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
         zufallselement = ((zufallselement,ausStand[zufallselement]))
