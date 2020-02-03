@@ -40,17 +40,17 @@ elemente={
   "Muffel in den Sitz":((0.3,"Rücken","Sitz",0,28),),
   
   #IN RÜCKEN
-  "Rücken":((0.1,"Stand","Rücken",0,29),(0.1,"Sitz","Rücken",1,30),(0,"Rücken","Rücken",0,31),(0.2,"Bauch","Rücken",0)),
-  "Halbe Rücken":((0.2,"Stand","Rücken",0,32),(0.3,"Rücken","Rücken",0,33),(0.2,"Sitz","Rücken",1,34)),
-  "Salto vorwärts z. Rücken c":((0.5,"Rücken","Rücken",0,35),),
-  "Muffel in den Rücken":((0.5,"Rücken","Stand",1,36),),
-  "Wende in den Rücken":((0.2,"Bauch","Rücken",0,37),),
+  "Rücken":((0.1,"Stand","Rücken",0,29),(0.1,"Sitz","Rücken",1,30),(0,"Rücken","Rücken",0,31),(0.2,"Bauch","Rücken",0,32)),
+  "Halbe Rücken":((0.2,"Stand","Rücken",0,33),(0.3,"Rücken","Rücken",0,34),(0.2,"Sitz","Rücken",1,35)),
+  "Salto vorwärts z. Rücken c":((0.5,"Rücken","Rücken",0,36),),
+  "Muffel in den Rücken":((0.5,"Rücken","Stand",1,37),),
+  "Wende in den Rücken":((0.2,"Bauch","Rücken",0,38),),
   
   #IN BAUCH
-  "Bauch":((0.1,"Stand","Bauch",0,38),(0.1,"Sitz","Bauch",0,39),(0,"Bauch","Bauch",0,40),(0.2,"Rücken","Bauch",1,41)),
-  "halbe Heli":((0.1,"Bauch","Bauch",0,42),),
-  "Muffel in den Bauch":((0.2,"Rücken","Bauch",1,43),),
-  "Wende in den Bauch":((0.2,"Rücken","Bauch",0,44),)
+  "Bauch":((0.1,"Stand","Bauch",0,39),(0.1,"Sitz","Bauch",0,40),(0,"Bauch","Bauch",0,41),(0.2,"Rücken","Bauch",1,42)),
+  "halbe Heli":((0.1,"Bauch","Bauch",0,43),),
+  "Muffel in den Bauch":((0.2,"Rücken","Bauch",1,44),),
+  "Wende in den Bauch":((0.2,"Rücken","Bauch",0,45),)
 
 }
 
@@ -202,7 +202,7 @@ def neueUebungGenerieren():
 userinp=""
 while userinp!="b":
   neueUebungGenerieren()
-  userinp=input("Übung speichern? |c für cool | w für weird|\nNeue Übung generieren mit: n\nBeenden mit b ")
+  userinp=input("Übung speichern? |c für cool | w für weird|\nNeue Übung generieren mit: n\nBeenden mit b\n")
   if "c" in userinp.lower():
     with open('coolsteUebungen.txt', 'a') as filehandle:
       for element in uebung:

@@ -11,3 +11,5 @@ Muffel in den Bauch   0.2
 _
 ('halbe Grätsche', (0.1, 'Stand', 'Stand', 1))('halbe Schraube', (0.1, 'Stand', 'Stand', 0))('Grätsche in den Sitz', (0, 'Stand', 'Sitz', 2))('Halbe Rücken', (0.2, 'Sitz', 'Rücken', 1))('halbe Stand', (0.2, 'Rücken', 'Stand', 0))('ganze Schraube', (0.2, 'Stand', 'Stand', 0))('ganze Sitz', (0.2, 'Stand', 'Sitz', 1))('Halbe Rücken', (0.2, 'Sitz', 'Rücken', 1))('Muffel in den Rücken', (0.5, 'Rücken', 'Stand', 1))('Sitz', (0, 'Stand', 'Sitz', 0))
 _
+('Grätsche', (0, 'Stand', 'Stand', 0, 6))('ganze Schraube', (0.2, 'Stand', 'Stand', 0, 14))('Halbe Rücken', (0.2, 'Stand', 'Rücken', 0, 32))('Muffel in den Sitz', (0.3, 'Rücken', 'Sitz', 0, 28))('Stand', (0, 'Sitz', 'Stand', 0, 3))('Hocke', (0, 'Stand', 'Stand', 0, 4))('halbe Hocke', (0.1, 'Stand', 'Stand', 1, 11))('halbe Bücke', (0.1, 'Stand', 'Stand', 1, 12))('halbe Schraube', (0.1, 'Stand', 'Stand', 0, 7))('Bauch', (0.1, 'Stand', 'Bauch', 0, 38))
+_
