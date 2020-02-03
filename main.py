@@ -112,98 +112,106 @@ users={
 currentuser=list(users)[0]
 erlaubteWeirdheit=users[currentuser][1]
 gesperrteElemente=users[currentuser][0]
-uebung = []
-spruengeInUebung = 0
-#currentuser=input("User?")
-#if currentuser.lower() in users:
-# print("Willkommen zurück,",currentuser)
-# gesperrteElemente=users[currentuser][0]
-# weirdheitsfaktor=users[currentuser][1]
-letztePosition="Stand"
-while spruengeInUebung < 10:
-  #print("Letzte Position:",letztePosition,"\n")
-  if letztePosition=="Stand":
-    zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
-    zufallselement = ((zufallselement,ausStand[zufallselement]))
-    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
-    weirdheitDesElements = zufallselement[1][3]
-    while weirdheitDesElements>erlaubteWeirdheit:
-      zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
-      zufallselement = ((zufallselement,ausStand[zufallselement]))
-      weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[1][4] in gesperrteElemente:
-      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+
+def neueUebungGenerieren():
+  global uebung
+  uebung = []
+  spruengeInUebung = 0
+  #currentuser=input("User?")
+  #if currentuser.lower() in users:
+  # print("Willkommen zurück,",currentuser)
+  # gesperrteElemente=users[currentuser][0]
+  # weirdheitsfaktor=users[currentuser][1]
+  letztePosition="Stand"
+  while spruengeInUebung < 10:
+    #print("Letzte Position:",letztePosition,"\n")
+    if letztePosition=="Stand":
       zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
       zufallselement = ((zufallselement,ausStand[zufallselement]))
       #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+      weirdheitDesElements = zufallselement[1][3]
+      while weirdheitDesElements>erlaubteWeirdheit:
+        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+        zufallselement = ((zufallselement,ausStand[zufallselement]))
+        weirdheitDesElements = zufallselement[1][3]
+      while zufallselement[1][4] in gesperrteElemente:
+        #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+        zufallselement = ((zufallselement,ausStand[zufallselement]))
+        #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
 
-  elif letztePosition=="Sitz":
-    zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
-    zufallselement = ((zufallselement,ausSitz[zufallselement]))
-    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
-    weirdheitDesElements = zufallselement[1][3]
-    while weirdheitDesElements>erlaubteWeirdheit:
-      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+    elif letztePosition=="Sitz":
       zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
       zufallselement = ((zufallselement,ausSitz[zufallselement]))
-      #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement
+      #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[1][4] in gesperrteElemente:
-      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
-      zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
-      zufallselement = ((zufallselement,ausStand[zufallselement]))
-      
+      while weirdheitDesElements>erlaubteWeirdheit:
+        #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+        zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
+        zufallselement = ((zufallselement,ausSitz[zufallselement]))
+        #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement
+        weirdheitDesElements = zufallselement[1][3]
+      while zufallselement[1][4] in gesperrteElemente:
+        #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+        zufallselement = ((zufallselement,ausStand[zufallselement]))
+        
 
-  elif letztePosition=="Bauch":
-    zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
-    zufallselement = ((zufallselement,ausBauch[zufallselement]))
-    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
-    weirdheitDesElements = zufallselement[1][3]
-    while weirdheitDesElements>erlaubteWeirdheit:
-      print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+    elif letztePosition=="Bauch":
       zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
       zufallselement = ((zufallselement,ausBauch[zufallselement]))
       #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[1][4] in gesperrteElemente:
-        #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
-        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
-        zufallselement = ((zufallselement,ausStand[zufallselement]))
+      while weirdheitDesElements>erlaubteWeirdheit:
+        print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+        zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
+        zufallselement = ((zufallselement,ausBauch[zufallselement]))
+        #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+        weirdheitDesElements = zufallselement[1][3]
+      while zufallselement[1][4] in gesperrteElemente:
+          #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+          zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+          zufallselement = ((zufallselement,ausStand[zufallselement]))
 
-  elif letztePosition=="Rücken":
-    zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
-    zufallselement = ((zufallselement,ausRücken[zufallselement]))
-    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
-    weirdheitDesElements = zufallselement[1][3]
-    while weirdheitDesElements>erlaubteWeirdheit:
-      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+    elif letztePosition=="Rücken":
       zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
       zufallselement = ((zufallselement,ausRücken[zufallselement]))
       #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
-    while zufallselement[1][4] in gesperrteElemente:
+      while weirdheitDesElements>erlaubteWeirdheit:
         #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
-        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
-        zufallselement = ((zufallselement,ausStand[zufallselement]))
-  uebung.append((zufallselement))
-  #print("Übung bisher:",uebung)
-  letztePosition=uebung[-1][1][2]
-  spruengeInUebung += 1
-print("\n\n")
-schwierigkeitDerUebung=0
-for element in uebung:
-  schwierigkeitDerUebung+=element[1][0]
-  print (element[0]," ",element[1][0])
-schwierigkeitDerUebung=round(schwierigkeitDerUebung,1)
-print("\nSchwierigkeit der Übung:",schwierigkeitDerUebung)
-userinp=input("Übung speichern? |c für cool | w für weird| ")
-if "c" in userinp.lower():
-  with open('coolsteUebungen.txt', 'a') as filehandle:
-    for element in uebung:
-      filehandle.write(str(element))
-    filehandle.write("\n_\n")
-elif "w" in userinp.lower():
-  with open('weirdesteUebungen.txt', 'a') as filehandle:
-    for element in uebung:
-      filehandle.write(str(element))
-    filehandle.write("\n_\n")
+        zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
+        zufallselement = ((zufallselement,ausRücken[zufallselement]))
+        #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+        weirdheitDesElements = zufallselement[1][3]
+      while zufallselement[1][4] in gesperrteElemente:
+          #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+          zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+          zufallselement = ((zufallselement,ausStand[zufallselement]))
+    uebung.append((zufallselement))
+    #print("Übung bisher:",uebung)
+    letztePosition=uebung[-1][1][2]
+    spruengeInUebung += 1
+  print("\n\n")
+  schwierigkeitDerUebung=0
+  for element in uebung:
+    schwierigkeitDerUebung+=element[1][0]
+    print (element[0]," ",element[1][0])
+  schwierigkeitDerUebung=round(schwierigkeitDerUebung,1)
+  print("\nSchwierigkeit der Übung:",schwierigkeitDerUebung)
+userinp=""
+while userinp!="b":
+  neueUebungGenerieren()
+  userinp=input("Übung speichern? |c für cool | w für weird|\nNeue Übung generieren mit: n\nBeenden mit b ")
+  if "c" in userinp.lower():
+    with open('coolsteUebungen.txt', 'a') as filehandle:
+      for element in uebung:
+        filehandle.write(str(element))
+      filehandle.write("\n_\n")
+  elif "w" in userinp.lower():
+    with open('weirdesteUebungen.txt', 'a') as filehandle:
+      for element in uebung:
+        filehandle.write(str(element))
+      filehandle.write("\n_\n")
+  elif "n" in userinp.lower():
+    neueUebungGenerieren()
