@@ -4,11 +4,11 @@ elemente={
   #TODO: Elemente sollten über die Nummer im Dict sperrbar sein
   #TODO: Kombinationen erfragen und falls machbar in jeweiligem Tupel nachtragen
   #TODO: Saltos hinzufügen
-  # Geht Bauch - halbe Sitz?
-  # Geht Bauch - Ganze Stand?
-  # Geht Bücke in den Sitz?
+  # Geht Bauch - halbe Sitz? ja aber mies
+  # Geht Bauch - Ganze Stand? jo, aber schwer
+  # Geht Bücke in den Sitz? ja
   # Wie viele Punkte gibt Sitz ganze Sitz? 0.2?
-  # Wie viele Punkte gibt Wende in den Rücken/ Bauch?
+  # Wie viele Punkte gibt Wende in den Rücken/ Bauch? 0.1
   #TODO: Für mich zum Üben: Ganze in den Sitz
   
   #INFO: Muffel zählt offiziell als Salto; Rücken vorwärtsrolle zählt auch als Salto oder Porpoise (Tümmler);
@@ -106,7 +106,7 @@ gesperrteElemente=[]
 erlaubteWeirdheit=2
 users={
   #Name: [gesperrte Elemente (List) ,weirde Sprünge (Int, 0 (keine) - 2 (alle))]
-  "malte":[[18,25],1]
+  "malte":[[18,25],2]
 }
 
 currentuser=list(users)[0]
