@@ -202,7 +202,7 @@ def neueUebungGenerieren():
 userinp=""
 while userinp!="b":
   neueUebungGenerieren()
-  userinp=input("Übung speichern? |c für cool | w für weird|\nNeue Übung generieren mit: n\nBeenden mit b\n")
+  userinp=input("Übung speichern? |c für cool | w für weird|\nDirekt eine neue Übung generieren mit: n\nBeenden mit b\n")
   if "c" in userinp.lower():
     with open('coolsteUebungen.txt', 'a') as filehandle:
       for element in uebung:
@@ -213,5 +213,5 @@ while userinp!="b":
       for element in uebung:
         filehandle.write(str(element))
       filehandle.write("\n_\n")
-  elif "n" in userinp.lower():
-    neueUebungGenerieren()
+  #elif "n" in userinp.lower():
+    #neueUebungGenerieren()

@@ -13,3 +13,5 @@ _
 _
 ('Grätsche', (0, 'Stand', 'Stand', 0, 6))('ganze Schraube', (0.2, 'Stand', 'Stand', 0, 14))('Halbe Rücken', (0.2, 'Stand', 'Rücken', 0, 32))('Muffel in den Sitz', (0.3, 'Rücken', 'Sitz', 0, 28))('Stand', (0, 'Sitz', 'Stand', 0, 3))('Hocke', (0, 'Stand', 'Stand', 0, 4))('halbe Hocke', (0.1, 'Stand', 'Stand', 1, 11))('halbe Bücke', (0.1, 'Stand', 'Stand', 1, 12))('halbe Schraube', (0.1, 'Stand', 'Stand', 0, 7))('Bauch', (0.1, 'Stand', 'Bauch', 0, 38))
 _
+('halbe Sitz', (0.1, 'Stand', 'Sitz', 0, 21))('Sitz', (0, 'Sitz', 'Sitz', 0, 20))('Rücken', (0.1, 'Sitz', 'Rücken', 1, 30))('Muffel in den Bauch', (0.2, 'Rücken', 'Bauch', 1, 44))('Wende in den Rücken', (0.2, 'Bauch', 'Rücken', 0, 38))('Rücken', (0, 'Rücken', 'Rücken', 0, 31))('Salto vorwärts z. Rücken c', (0.5, 'Rücken', 'Rücken', 0, 36))('ganze Stand', (0.3, 'Rücken', 'Stand', 1, 16))('ganze Schraube', (0.2, 'Stand', 'Stand', 0, 14))('halbe Bücke', (0.1, 'Stand', 'Stand', 1, 12))
+_
