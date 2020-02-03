@@ -9,6 +9,7 @@ elemente={
   # Geht Bücke in den Sitz?
   # Wie viele Punkte gibt Sitz ganze Sitz? 0.2?
   # Wie viele Punkte gibt Wende in den Rücken/ Bauch?
+  #TODO: Für mich zum Üben: Ganze in den Sitz
   
   #INFO: Muffel zählt offiziell als Salto; Rücken vorwärtsrolle zählt auch als Salto oder Porpoise (Tümmler);
 
@@ -16,40 +17,40 @@ elemente={
   #Elementname : (Schwierigkeit, Position vorher, Position nachher,Weirdheitsfaktor 0 (gewöhnlich)- 1 (ungewöhnlich) - 2 (schwer machbar/ sehr ungewohnt))
 
   #IN STAND
-  "Stand":((0.1,"Rücken","Stand",0),(0.1,"Bauch","Stand",0),(0,"Sitz","Stand",0)),
-  "Hocke":((0,"Stand","Stand",0),),
-  "Bücke":((0,"Stand","Stand",0),),
-  "Grätsche":((0,"Stand","Stand",0),),
-  "halbe Schraube":((0.1,"Stand","Stand",0),),
-  "halbe Stand":((0.1,"Rücken","Stand",0),(0.1,"Bauch","Stand",0),(0,"Sitz","Stand",0)),
-  "halbe Hocke":((0.1,"Stand","Stand",1),),
-  "halbe Bücke":((0.1,"Stand","Stand",1),),
-  "halbe Grätsche":((0.1,"Stand","Stand",1),),
-  "ganze Schraube":((0.2,"Stand","Stand",0),),
-  "ganze Stand":((0.2,"Sitz","Stand",1),(0.3,"Rücken","Stand",1)),
-  "Muffel":((0.3,"Rücken","Stand",0),),
-  "Salto vorwärts z. Stand":((0.6,"Rücken","Rücken",1),),
+  "Stand":((0.1,"Rücken","Stand",0,1),(0.1,"Bauch","Stand",0,2),(0,"Sitz","Stand",0,3)),
+  "Hocke":((0,"Stand","Stand",0,4),),
+  "Bücke":((0,"Stand","Stand",0,5),),
+  "Grätsche":((0,"Stand","Stand",0,6),),
+  "halbe Schraube":((0.1,"Stand","Stand",0,7),),
+  "halbe Stand":((0.2,"Rücken","Stand",0,8),(0.1,"Bauch","Stand",0,9),(0.1,"Sitz","Stand",0,10)),
+  "halbe Hocke":((0.1,"Stand","Stand",1,11),),
+  "halbe Bücke":((0.1,"Stand","Stand",1,12),),
+  "halbe Grätsche":((0.1,"Stand","Stand",1,13),),
+  "ganze Schraube":((0.2,"Stand","Stand",0,14),),
+  "ganze Stand":((0.2,"Sitz","Stand",1,15),(0.3,"Rücken","Stand",1,16)),
+  "Muffel":((0.3,"Rücken","Stand",0,17),),
+  "Salto vorwärts z. Stand":((0.6,"Rücken","Stand",1,18),),
 
   #IN SITZ
-  "Sitz":((0,"Stand","Sitz",0),(0,"Sitz","Sitz",0)),
-  "halbe Sitz":((0.1,"Stand","Sitz",0),(0.1,"Sitz", "Sitz",0),(0.2,"Rücken","Sitz",1)),
-  "ganze Sitz":((0.2,"Sitz","Sitz",0),(0.2,"Stand","Sitz",1)),
-  "Hocke in den Sitz":((0,"Stand","Sitz",2),),
-  "Grätsche in den Sitz":((0,"Stand","Sitz",2),),
-  "Muffel in den Sitz":((0.3,"Rücken","Sitz",0),),
+  "Sitz":((0,"Stand","Sitz",0,19),(0,"Sitz","Sitz",0,20)),
+  "halbe Sitz":((0.1,"Stand","Sitz",0,21),(0.1,"Sitz", "Sitz",0,22),(0.2,"Rücken","Sitz",1,23)),
+  "ganze Sitz":((0.2,"Sitz","Sitz",0,24),(0.2,"Stand","Sitz",1,25)),
+  "Hocke in den Sitz":((0,"Stand","Sitz",2,26),),
+  "Grätsche in den Sitz":((0,"Stand","Sitz",2,27),),
+  "Muffel in den Sitz":((0.3,"Rücken","Sitz",0,28),),
   
   #IN RÜCKEN
-  "Rücken":((0.1,"Stand","Rücken",0),(0.1,"Sitz","Rücken",1),(0,"Rücken","Rücken",0),(0.2,"Bauch","Rücken",0)),
-  "Halbe Rücken":((0.2,"Stand","Rücken",0),(0.3,"Rücken","Rücken",0),(0.2,"Sitz","Rücken",1)),
-  "Salto vorwärts z. Rücken c":((0.5,"Rücken","Rücken",0),),
-  "Muffel in den Rücken":((0.5,"Rücken","Stand",1),),
-  "Wende in den Rücken":((0.2,"Bauch","Rücken",0),),
+  "Rücken":((0.1,"Stand","Rücken",0,29),(0.1,"Sitz","Rücken",1,30),(0,"Rücken","Rücken",0,31),(0.2,"Bauch","Rücken",0)),
+  "Halbe Rücken":((0.2,"Stand","Rücken",0,32),(0.3,"Rücken","Rücken",0,33),(0.2,"Sitz","Rücken",1,34)),
+  "Salto vorwärts z. Rücken c":((0.5,"Rücken","Rücken",0,35),),
+  "Muffel in den Rücken":((0.5,"Rücken","Stand",1,36),),
+  "Wende in den Rücken":((0.2,"Bauch","Rücken",0,37),),
   
   #IN BAUCH
-  "Bauch":((0.1,"Stand","Bauch",0),(0.1,"Sitz","Bauch",0),(0,"Bauch","Bauch",0),(0.2,"Rücken","Bauch",1)),
-  "halbe Heli":((0.1,"Bauch","Bauch",0),),
-  "Muffel in den Bauch":((0.2,"Rücken","Bauch",1),),
-  "Wende in den Bauch":((0.2,"Rücken","Bauch",0),)
+  "Bauch":((0.1,"Stand","Bauch",0,38),(0.1,"Sitz","Bauch",0,39),(0,"Bauch","Bauch",0,40),(0.2,"Rücken","Bauch",1,41)),
+  "halbe Heli":((0.1,"Bauch","Bauch",0,42),),
+  "Muffel in den Bauch":((0.2,"Rücken","Bauch",1,43),),
+  "Wende in den Bauch":((0.2,"Rücken","Bauch",0,44),)
 
 }
 
@@ -74,8 +75,11 @@ for element in elemente.keys():
         ausRücken[element]=variante
       elif startposition=="Bauch":
         ausBauch[element]=variante
-
-print(ausStand)
+#print("___________________OUTPUT")
+#print(ausStand)
+#print(ausSitz)
+#print(ausRücken)
+#print(ausBauch)
 
 alteElementsammlung = {
   # Start-Position:[(Name des Sprungs,Ziel-Position)]
@@ -102,10 +106,12 @@ gesperrteElemente=[]
 erlaubteWeirdheit=2
 users={
   #Name: [gesperrte Elemente (List) ,weirde Sprünge (Int, 0 (keine) - 2 (alle))]
-  "malte":[[13.2],1]
+  "malte":[[25],1]
 }
 
-
+currentuser=list(users)[0]
+erlaubteWeirdheit=users[currentuser][1]
+gesperrteElemente=users[currentuser][0]
 uebung = []
 spruengeInUebung = 0
 #currentuser=input("User?")
@@ -115,56 +121,68 @@ spruengeInUebung = 0
 # weirdheitsfaktor=users[currentuser][1]
 letztePosition="Stand"
 while spruengeInUebung < 10:
-  print("Letzte Position:",letztePosition,"\n")
+  #print("Letzte Position:",letztePosition,"\n")
   if letztePosition=="Stand":
     zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
     zufallselement = ((zufallselement,ausStand[zufallselement]))
-    print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
     weirdheitDesElements = zufallselement[1][3]
     while weirdheitDesElements>erlaubteWeirdheit:
-      print("Ziehe neues Element, da Weirdheit höher als gewünscht")
       zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
       zufallselement = ((zufallselement,ausStand[zufallselement]))
-      print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
+    while zufallselement[4] in gesperrteElemente:
+      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+      zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+      zufallselement = ((zufallselement,ausStand[zufallselement]))
+      #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
 
   elif letztePosition=="Sitz":
     zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
     zufallselement = ((zufallselement,ausSitz[zufallselement]))
-    print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
     weirdheitDesElements = zufallselement[1][3]
     while weirdheitDesElements>erlaubteWeirdheit:
-      print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
       zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
       zufallselement = ((zufallselement,ausSitz[zufallselement]))
-      print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+      #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement
       weirdheitDesElements = zufallselement[1][3]
+    while zufallselement[4] in gesperrteElemente:
+      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+      zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+      zufallselement = ((zufallselement,ausStand[zufallselement]))
+      
 
   elif letztePosition=="Bauch":
     zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
     zufallselement = ((zufallselement,ausBauch[zufallselement]))
-    print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
     weirdheitDesElements = zufallselement[1][3]
     while weirdheitDesElements>erlaubteWeirdheit:
       print("Ziehe neues Element, da Weirdheit höher als gewünscht")
       zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
       zufallselement = ((zufallselement,ausBauch[zufallselement]))
-      print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+      #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
 
   elif letztePosition=="Rücken":
     zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
     zufallselement = ((zufallselement,ausRücken[zufallselement]))
-    print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+    #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
     weirdheitDesElements = zufallselement[1][3]
     while weirdheitDesElements>erlaubteWeirdheit:
-      print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+      #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
       zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
       zufallselement = ((zufallselement,ausRücken[zufallselement]))
-      print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
+      #print("Zufallselement Nr",spruengeInUebung+1,"ist:",zufallselement)
       weirdheitDesElements = zufallselement[1][3]
+    while zufallselement[4] in gesperrteElemente:
+        #print("Ziehe neues Element, da Weirdheit höher als gewünscht")
+        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+        zufallselement = ((zufallselement,ausStand[zufallselement]))
   uebung.append((zufallselement))
-  print("Übung bisher:",uebung)
+  #print("Übung bisher:",uebung)
   letztePosition=uebung[-1][1][2]
   spruengeInUebung += 1
 print("\n\n")
@@ -176,6 +194,12 @@ schwierigkeitDerUebung=round(schwierigkeitDerUebung,1)
 print("\nSchwierigkeit der Übung:",schwierigkeitDerUebung)
 userinp=input("Übung speichern? |c für cool | w für weird| ")
 if "c" in userinp.lower():
-  with open('coolsteUebungen.txt', 'w') as filehandle:
+  with open('coolsteUebungen.txt', 'a') as filehandle:
     for element in uebung:
-      filehandle.write('%s\n' % element)
+      filehandle.write(str(element))
+    filehandle.write("\n_\n")
+elif "w" in userinp.lower():
+  with open('weirdesteUebungen.txt', 'a') as filehandle:
+    for element in uebung:
+      filehandle.write(str(element))
+    filehandle.write("\n_\n")

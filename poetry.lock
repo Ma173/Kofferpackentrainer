@@ -1,0 +1,14 @@
+[[package]]
+category = "main"
+description = "Converts a Python dictionary or other native data type into a valid XML string."
+name = "dicttoxml"
+optional = false
+python-versions = "*"
+version = "1.7.4"
+
+[metadata]
+content-hash = "d8c703e8c92518d06f37daf141379e1abe620fd82cad19ac410d737a6852577f"
+python-versions = "^3.7"
+
+[metadata.hashes]
+dicttoxml = ["ea44cc4ec6c0f85098c57a431a1ee891b3549347b07b7414c8a24611ecf37e45"]
