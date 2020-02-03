@@ -106,7 +106,7 @@ gesperrteElemente=[]
 erlaubteWeirdheit=2
 users={
   #Name: [gesperrte Elemente (List) ,weirde Sprünge (Int, 0 (keine) - 2 (alle))]
-  "malte":[[25],1]
+  "malte":[[18,25],1]
 }
 
 currentuser=list(users)[0]
