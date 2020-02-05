@@ -106,7 +106,7 @@ gesperrteElemente=[]
 erlaubteWeirdheit=2
 users={
   #Name: [gesperrte Elemente (List) ,weirde Sprünge (Int, 0 (keine) - 2 (alle))]
-  "malte":[[18,25],2]
+  "malte":[[18,24,25 36],2]
 }
 
 currentuser=list(users)[0]
@@ -200,7 +200,8 @@ def neueUebungGenerieren():
   schwierigkeitDerUebung=round(schwierigkeitDerUebung,1)
   print("\nSchwierigkeit der Übung:",schwierigkeitDerUebung)
 userinp=""
-while userinp!="b":
+looptype=1
+while looptype==0 and userinp!="b":
   neueUebungGenerieren()
   userinp=input("Übung speichern? |c für cool | w für weird|\nDirekt eine neue Übung generieren mit: n\nBeenden mit b\n")
   if "c" in userinp.lower():
@@ -215,3 +216,8 @@ while userinp!="b":
       filehandle.write("\n_\n")
   #elif "n" in userinp.lower():
     #neueUebungGenerieren()
+anzahlgewuenschteuebungen=20
+anzahluebungenimloop=0
+while looptype == 1 and  anzahlgewuenschteuebungen>anzahluebungenimloop:
+  neueUebungGenerieren()
+  anzahluebungenimloop+=1
