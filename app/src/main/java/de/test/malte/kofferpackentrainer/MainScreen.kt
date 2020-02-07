@@ -40,6 +40,11 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         //TODO: Hier den Import der Elemente-Textdatei in die Datenstruktur (z.B. HashMap) einbauen
         //TODO: Nachdem alle Elemente importiert sind, können die in den Usersettings angezeigt werden
+        var elementeInStand :  Map<String,Array<Any>> = mapOf("key" to arrayOf(1,"firstString","secondString",2,0))
+        for (dict in elemente.txt){
+            for
+        }
+
         //val elementeInStand : HashMap<String,Array<Integer,String,String,Integer>> = hashMapOf<String,Array<Int,String,String,Int>()
         //val elementeAusStand: listOf<Object>()
         //dyn.whatever()
