@@ -14,6 +14,8 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
 import kotlinx.android.synthetic.main.content_main_screen.*
+import java.lang.Math.random
+import java.util.Random
 
 //import kotlinx.android.synthetic.main.main_screen.*
 
@@ -94,14 +96,15 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 "Bauch" to arrayOf(0, "Bauch", "Bauch", 0),
                 "halbe Heli" to arrayOf(0.1, "Bauch", "Bauch", 0)
         )
-
-
-                val elemente = findViewById(R.id.elemente.txt)
-        for (dict in elemente.txt){
-            for ((key, array) in dict){
-                elementeAllerPositionen
-            }
+        //fun Random.asJavaRandom(): Random
+        val random = Random()
+        fun rand(from: Int, to: Int): Int {
+            return random.nextInt(to - from) + from
         }
+        val randomElementNumber = Random().nextInt(elementeAusBauch.size) + 1
+        println(elementeAusBauch[randomElementNumber])
+        //println(elementeAusBauch[random.nextInt(elementeAusBauch.size)])
+
 
 
 
