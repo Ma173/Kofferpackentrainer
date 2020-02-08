@@ -40,12 +40,72 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         //TODO: Hier den Import der Elemente-Textdatei in die Datenstruktur (z.B. HashMap) einbauen
         //TODO: Nachdem alle Elemente importiert sind, können die in den Usersettings angezeigt werden
-        var elementeInStand :  Map<String,Array<Any>> = mapOf("key" to arrayOf(1,"firstString","secondString",2,0))
+
+        var elementeAusStand :  Map<String,Array<Any>> = mapOf(
+                "Hocke" to arrayOf(0, "Stand", "Stand", 0),
+                "Bücke" to arrayOf(0, "Stand", "Stand", 0),
+                "Grätsche" to arrayOf(0, "Stand", "Stand", 0),
+                "halbe Schraube" to arrayOf(0.1, "Stand", "Stand", 0),
+                "halbe Hocke" to arrayOf(0.1, "Stand", "Stand", 1),
+                "halbe Bücke" to arrayOf(0.1, "Stand", "Stand", 1),
+                "halbe Grätsche" to arrayOf(0.1, "Stand", "Stand", 1),
+                "ganze Schraube" to arrayOf(0.2, "Stand", "Stand", 0),
+                "Sitz" to arrayOf(0, "Stand", "Sitz", 0),
+                "halbeSitz" to arrayOf(0.1, "Stand", "Sitz", 0),
+                "ganze Sitz" to arrayOf(0.2, "Stand", "Sitz", 1),
+                "Hocke in den Sitz" to arrayOf(0, "Stand", "Sitz", 2),
+                "Grätsche in den Sitz" to arrayOf(0, "Stand", "Sitz", 2),
+                "Rücken" to arrayOf(0.1,"Stand", "Rücken", 0),
+                "Halbe Rücken" to arrayOf(0.2, "Stand", "Rücken", 0),
+                "Bauch" to arrayOf(0.1, "Stand","Bauch", 0)
+        )
+        var elementeAusSitz :  Map<String,Array<Any>> = mapOf(
+                "Stand" to arrayOf(0, "Sitz", "Stand", 0),
+                "halbe Stand" to arrayOf(0.1, "Sitz", "Stand", 0),
+                "ganze Stand" to arrayOf(0.2, "Sitz", "Stand", 1),
+                "Sitz" to arrayOf(0, "Sitz", "Sitz", 0),
+                "halbe Sitz" to arrayOf(0.1, "Sitz", "Sitz", 0),
+                "ganze Sitz" to arrayOf(0.2, "Sitz", "Sitz", 0),
+                "Rücken" to arrayOf(0.1, "Sitz", "Rücken", 1),
+                "Halbe Rücken" to arrayOf(0.2, "Sitz", "Rücken", 1),
+                "Bauch" to arrayOf(0.1, "Sitz", "Bauch", 0)
+        )
+        var elementeAusRücken :  Map<String,Array<Any>> = mapOf(
+                "Stand" to arrayOf(0.1, "Rücken", "Stand", 0),
+                "halbe Stand" to arrayOf(0.2, "Rücken", "Stand", 0),
+                "ganze Stand" to arrayOf(0.3, "Rücken", "Stand", 1),
+                "Muffel" to arrayOf(0.3, "Rücken", "Stand", 0),
+                "Salto vorwärts z. Stand" to arrayOf(0.6, "Rücken", "Stand", 1),
+                "halbe Sitz" to arrayOf(0.2, "Rücken", "Sitz", 1),
+                "Muffel in denSitz" to arrayOf(0.3, "Rücken", "Sitz", 0),
+                "Rücken" to arrayOf(0, "Rücken", "Rücken", 0),
+                "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0),
+                "Salto vorwärts z. Rücken c" to arrayOf(0.5, "Rücken", "Rücken", 0),
+                "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Stand", 1),
+                "Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1),
+                "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1),
+                "Wende in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 0)
+        )
+        var elementeAusBauch :  Map<String,Array<Any>> = mapOf(
+                "Stand" to arrayOf(0.1, "Bauch", "Stand", 0),
+                "halbe Stand" to arrayOf(0.1, "Bauch", "Stand", 0),
+                "Rücken" to arrayOf(0.2, "Bauch", "Rücken", 0),
+                "Wende in den Rücken" to arrayOf(0.2, "Bauch", "Rücken", 0),
+                "Bauch" to arrayOf(0, "Bauch", "Bauch", 0),
+                "halbe Heli" to arrayOf(0.1, "Bauch", "Bauch", 0)
+        )
+
+
+                val elemente = findViewById(R.id.elemente.txt)
         for (dict in elemente.txt){
-            for
+            for ((key, array) in dict){
+                elementeAllerPositionen
+            }
         }
 
-        //val elementeInStand : HashMap<String,Array<Integer,String,String,Integer>> = hashMapOf<String,Array<Int,String,String,Int>()
+
+
+            //val elementeInStand : HashMap<String,Array<Integer,String,String,Integer>> = hashMapOf<String,Array<Int,String,String,Int>()
         //val elementeAusStand: listOf<Object>()
         //dyn.whatever()
         //val elementeAusStand = Arraylist()
