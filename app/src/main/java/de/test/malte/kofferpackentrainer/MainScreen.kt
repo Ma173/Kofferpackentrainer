@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
@@ -116,21 +118,32 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             startActivity(intent)
         }
 
+        lateinit var listView: ListView
+
         btn_new_exercise.setOnClickListener {
 
             //greeting.visibility = View.INVISIBLE
-            list_elemente_der_uebung.visibility = View.VISIBLE
-            var newExercise = generateNewExercise()
+            //list_elemente_der_uebung.visibility = View.VISIBLE
 
-            for (element in newExercise){
+            val elementList = findViewById<ListView>(R.id.list_elemente_der_uebung)
+            var newExercise = generateNewExercise()
+            val listItems = arrayOfNulls<String>(newExercise.size)
+
+            for (i in 0 until newExercise.size){//(element in newExercise){
 
                 //setContentView(R.layout.content_main_screen)
                 val greeting = findViewById<View>(R.id.greeting)
+
                 //val greeting = findViewById<View>(R.id.greeting)
                 //TextView greeting = (TextView) findViewById(R.id.greeting)
                 //greeting.text.setText(uebung)
                 //TextView exercise = findViewById(R.id.exercise)
-                exercise.setText(element.toString())
+                //exercise.setText(element.toString())
+                val element = newExercise[i]
+                listItems[i] = element //ggf. hier dann nur den ersten Teil des Elements ziehen, weil da noch der ganze Java-Bums hintersteht
+                val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, listItems)
+                ArrayAdapter<String> arrayAdapter =
+                elementList.add
             }
 
         }
