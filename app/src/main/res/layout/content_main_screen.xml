@@ -12,10 +12,12 @@
         android:id="@+id/exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:gravity="start|top"
+        android:gravity="center_horizontal|center_vertical"
         android:inputType="textMultiLine"
+        android:textAlignment="textStart"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,6 +1,9 @@
 package de.test.malte.kofferpackentrainer
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -8,10 +11,9 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main_screen.*
@@ -84,6 +86,25 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return random.nextInt(to - from) + from
     }
 
+    private lateinit var listView: ListView
+    private lateinit var list_elemente_der_uebung: ListView
+
+    fun buttonEffect(button: View) {
+        button.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    v.background.setColorFilter(Color.argb(255,63,81,181), PorterDuff.Mode.SRC_ATOP)//-0x1f0b8adf //(3f51b5, PorterDuff.Mode.SRC_ATOP)
+                    v.invalidate()
+                }
+                MotionEvent.ACTION_UP -> {
+                    v.background.clearColorFilter()
+                    v.invalidate()
+                }
+            }
+            false
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
@@ -118,37 +139,59 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             startActivity(intent)
         }
 
-        lateinit var listView: ListView
+
 
         btn_new_exercise.setOnClickListener {
 
-            //greeting.visibility = View.INVISIBLE
+            buttonEffect(btn_new_exercise)
+
+            greeting.visibility = View.INVISIBLE
             //list_elemente_der_uebung.visibility = View.VISIBLE
 
             val elementList = findViewById<ListView>(R.id.list_elemente_der_uebung)
             var newExercise = generateNewExercise()
             val listItems = arrayOfNulls<String>(newExercise.size)
 
-            for (i in 0 until newExercise.size){//(element in newExercise){
-
-                //setContentView(R.layout.content_main_screen)
-                val greeting = findViewById<View>(R.id.greeting)
-
-                //val greeting = findViewById<View>(R.id.greeting)
-                //TextView greeting = (TextView) findViewById(R.id.greeting)
-                //greeting.text.setText(uebung)
+            var exerciseString = ""
+            for (i in 0 until newExercise.size) {//(element in newExercise){
                 //TextView exercise = findViewById(R.id.exercise)
-                //exercise.setText(element.toString())
                 val element = newExercise[i]
-                listItems[i] = element //ggf. hier dann nur den ersten Teil des Elements ziehen, weil da noch der ganze Java-Bums hintersteht
-                val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, listItems)
-                ArrayAdapter<String> arrayAdapter =
-                elementList.add
+                listItems[i] = element.first //dies ist der String (Name des Elements), der vorne im Pair aus Element und Elementeigenschaften steht
+                exerciseString=exerciseString+"\n"+element.first
             }
+            exercise.setText(exerciseString)
+            val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, listItems)
+            //listView.adapter = MyCustomAdapter(this)
+
 
         }
 
         }
+    private class MyCustomAdapter(context: Context): BaseAdapter() {
+
+        private val mContext: Context
+        init {
+            this.mContext = context
+        }
+
+        override fun getCount(): Int {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getItem(position: Int): Any {
+            return "Test String"
+        }
+
+        override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
+            val textView = TextView(mContext)
+            textView.text = "HERE is my ROW for my LISTVIEW"
+            return textView
+        }
+    }
 
     fun getNewElement(startingPosition : String):Pair<String,Array<Any>>{
         var keysOfDict = emptySet<String>()
@@ -176,7 +219,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         var jumpsInExercise = 0
         var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
         while (jumpsInExercise<10){
-            var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0)
+            var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
             if (newExercise.size==0){
                 newElement = getNewElement("Stand")
             }
