@@ -166,6 +166,14 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         }
 
+        btn_save_exercise.setOnClickListener {view ->
+            Snackbar.make(view, "Zurzeit kein Speichern möglich", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            buttonEffect(btn_save_exercise)
+
+        }
+
+
         }
     private class MyCustomAdapter(context: Context): BaseAdapter() {
 
@@ -195,18 +203,18 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
     fun getNewElement(startingPosition : String):Pair<String,Array<Any>>{
         var keysOfDict = emptySet<String>()
+        var DictList = elementeAusStand.map{it.key to it.value}.shuffled()
         when (startingPosition){
-            "Stand" -> keysOfDict = elementeAusStand.keys
-            "Sitz" -> keysOfDict = elementeAusSitz.keys
-            "Rücken" -> keysOfDict = elementeAusRuecken.keys
-            "Bauch" -> keysOfDict = elementeAusBauch.keys
+            "Stand" -> DictList = elementeAusStand.map{it.key to it.value}.shuffled()//keysOfDict = elementeAusStand.keys
+            "Sitz" -> DictList = elementeAusSitz.map{it.key to it.value}.shuffled()//keysOfDict = elementeAusSitz.keys
+            "Rücken" -> DictList = elementeAusRuecken.map{it.key to it.value}.shuffled()//keysOfDict = elementeAusRuecken.keys
+            "Bauch" -> DictList = elementeAusBauch.map{it.key to it.value}.shuffled()//keysOfDict = elementeAusBauch.keys
             else ->listOf("")
         }
 
-        var DictList = elementeAusStand.map{it.key to it.value}.shuffled()
         var newElement = DictList[0]
 
-        var randomNumber = rand(0,elementeAusStand.size)
+        //var randomNumber = rand(0,elementeAusStand.size)
 
         //var newElement = elementeAusStand.keys.get(randomNumber: Int)
         //val keysOfDictTwo=listOf("A","B")
@@ -274,7 +282,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             }
             R.id.nav_slideshow -> {
-
+                val intent = Intent(this,SavedExercises::class.java)
+                startActivity(intent)
             }
             R.id.nav_manage -> {
 
