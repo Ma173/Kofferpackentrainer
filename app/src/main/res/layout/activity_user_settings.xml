@@ -29,6 +29,15 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/username" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -50,14 +59,5 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="end"
         app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:autoSizeTextType="uniform"
-        android:gravity="center"
-        android:text="@string/username" />
 
 </android.support.design.widget.CoordinatorLayout>
