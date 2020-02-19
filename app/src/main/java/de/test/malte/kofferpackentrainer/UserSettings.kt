@@ -74,7 +74,7 @@ class UserSettings : AppCompatActivity() {
         setContentView(R.layout.activity_user_settings)
         //setSupportActionBar(toolbar)
         switchUser.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "In Zukunft lässt sich hier der Username ändern", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
 
@@ -84,6 +84,7 @@ class UserSettings : AppCompatActivity() {
         }
 
         // Initializing the array lists and the adapter
+        setContentView(R.layout.content_user_settings)
 
         var listview = findViewById<ListView>(R.id.listView)
         var list = mutableListOf<Model>()
@@ -111,7 +112,7 @@ class UserSettings : AppCompatActivity() {
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, itemlistAusStand)
 
         //listView.setOnItemClickListener { adapterView, view, i, l -> android.widget.Toast.makeText(this,"Folgendes element ausgewählt --> "+itemlistAusStand.get(i),android.widget.Toast.LENGTH_SHORT).show()}
-        val position: SparseBooleanArray = listView.checkedItemPositions
+        //val position: SparseBooleanArray = listView.checkedItemPositions
     }
 }
 
