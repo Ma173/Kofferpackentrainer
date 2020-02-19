@@ -11,6 +11,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
@@ -104,11 +105,31 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             false
         }
     }
+    private val TAG = "None"
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Log.i(TAG, "onSaveInstanceState")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.i(TAG, "onRestoreInstanceState")
+
+        val userText = savedInstanceState?.getCharSequence("savedText")
+        //editText.setText(userText)
+        greeting.visibility = View.INVISIBLE
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
         setSupportActionBar(toolbar)
+
+        if (savedInstanceState != null){
+            var x = savedInstanceState.getBoolean("visibility")
+            var s = savedInstanceState.getString("text")
+        }
 
         btn_new_exercise.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

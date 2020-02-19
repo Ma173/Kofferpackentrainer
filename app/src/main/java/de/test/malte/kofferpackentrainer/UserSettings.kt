@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.SparseBooleanArray
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.content_user_settings.*
 
@@ -80,6 +84,29 @@ class UserSettings : AppCompatActivity() {
         }
 
         // Initializing the array lists and the adapter
+
+        var listview = findViewById<ListView>(R.id.listView)
+        var list = mutableListOf<Model>()
+
+        list.add(Model("Element1","Element1 description", R.drawable.button_dectivated))
+        list.add(Model("Element2","Elememt2 description",R.drawable.button_dectivated))
+
+        listview.adapter = MyAdapter(this, R.layout.row, list)
+
+        listview.setOnItemClickListener{ parent: AdapterView<*>, view: View, position:Int, id: Long ->
+            if (position == 0) {
+                Toast.makeText(this@UserSettings,"Item $position geklickt", Toast.LENGTH_LONG).show()
+            }
+            if (position == 1) {
+                Toast.makeText(this@UserSettings,"Item ZWEI geklickt", Toast.LENGTH_LONG).show()
+            }
+            if (position == 2) {
+                Toast.makeText(this@UserSettings,"Item DREI geklickt", Toast.LENGTH_LONG).show()
+            }
+
+        }
+
+
         var itemlistAusStand = arrayListOf<String>()
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, itemlistAusStand)
 
