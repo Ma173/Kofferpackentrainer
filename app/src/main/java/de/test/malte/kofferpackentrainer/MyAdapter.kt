@@ -13,7 +13,7 @@ class MyAdapter (var mCtx:Context, var resources:Int, var items:List<Model>):Arr
         val layoutInflater:LayoutInflater = LayoutInflater.from(mCtx)
         val view:View = layoutInflater.inflate(resources,null)
 
-        val imageView:ImageView = view.findViewById(R.id.image)
+        val imageView:ImageView = view.findViewById(R.id.image1)
         val titleTextView:TextView = view.findViewById(R.id.textView1)
         val descriptionTextView:TextView = view.findViewById(R.id.textView2)
 

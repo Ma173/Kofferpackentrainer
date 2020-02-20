@@ -4,14 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.SparseBooleanArray
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.view.View.MeasureSpec
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
-import kotlinx.android.synthetic.main.content_user_settings.*
+
 
 class UserSettings : AppCompatActivity() {
 
@@ -69,6 +66,24 @@ class UserSettings : AppCompatActivity() {
             "halbe Heli" to arrayOf(0.1, "Bauch", "Bauch", 0)
     )
 
+    object Utility {
+        fun setListViewHeightBasedOnChildren(listView: ListView) {
+            val listAdapter = listView.adapter
+                    ?: // pre-condition
+                    return
+            var totalHeight = 0
+            val desiredWidth = MeasureSpec.makeMeasureSpec(listView.width, MeasureSpec.AT_MOST)
+            for (i in 0 until listAdapter.count) {
+                val listItem = listAdapter.getView(i, null, listView)
+                listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED)
+                totalHeight += listItem.measuredHeight
+            }
+            val params = listView.layoutParams
+            params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
+            listView.layoutParams = params
+            listView.requestLayout()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_settings)
@@ -84,19 +99,36 @@ class UserSettings : AppCompatActivity() {
         }
 
         // Initializing the array lists and the adapter
-        setContentView(R.layout.content_user_settings)
+        //setContentView(R.layout.content_user_settings)
 
         var listview = findViewById<ListView>(R.id.listView)
         var list = mutableListOf<Model>()
 
-        list.add(Model("Element1","Element1 description", R.drawable.button_dectivated))
-        list.add(Model("Element2","Elememt2 description",R.drawable.button_dectivated))
+        list.add(Model("Hocke","Eine normale Hocke", R.drawable.button_dectivated))
+        Utility.setListViewHeightBasedOnChildren(listView)
+        list.add(Model("Bücke","Eine normale Bücke",R.drawable.button_dectivated))
+        Utility.setListViewHeightBasedOnChildren(listView)
+        list.add(Model("Grätsche","Eine normale Grätsche",R.drawable.button_dectivated))
+        Utility.setListViewHeightBasedOnChildren(listView)
 
         listview.adapter = MyAdapter(this, R.layout.row, list)
+
+        var elementArray: IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)//Array (41)
 
         listview.setOnItemClickListener{ parent: AdapterView<*>, view: View, position:Int, id: Long ->
             if (position == 0) {
                 Toast.makeText(this@UserSettings,"Item $position geklickt", Toast.LENGTH_LONG).show()
+                val img: ImageView = findViewById(R.id.image1)
+                if (elementArray.get(position)==0){
+                    img.setImageResource(R.drawable.button_activated)
+                    elementArray.set(position,1)
+                }
+                else if (elementArray.get(position)==1){
+                    img.setImageResource(R.drawable.button_dectivated)
+                    elementArray.set(position,0)
+                }
+
+
             }
             if (position == 1) {
                 Toast.makeText(this@UserSettings,"Item ZWEI geklickt", Toast.LENGTH_LONG).show()
