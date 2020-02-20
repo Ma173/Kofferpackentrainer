@@ -64,11 +64,10 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@+id/app_bar"
-        app:layout_anchorGravity="bottom"
         android:layout_gravity="bottom"
         android:layout_marginTop="?android:attr/actionBarSize"
-        />
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="bottom" />
 
 
 </android.support.design.widget.CoordinatorLayout>

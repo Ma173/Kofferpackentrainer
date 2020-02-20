@@ -3,11 +3,13 @@ package de.test.malte.kofferpackentrainer
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.View.MeasureSpec
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_user_settings.*
+import kotlinx.android.synthetic.main.nav_header_main_screen.*
 
 
 class UserSettings : AppCompatActivity() {
@@ -84,6 +86,7 @@ class UserSettings : AppCompatActivity() {
             listView.requestLayout()
         }
     }
+    public var elementArray: IntArray = intArrayOf(1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_settings)
@@ -104,23 +107,44 @@ class UserSettings : AppCompatActivity() {
         var listview = findViewById<ListView>(R.id.listView)
         var list = mutableListOf<Model>()
 
-        list.add(Model("Hocke","Eine normale Hocke", R.drawable.button_dectivated))
-        Utility.setListViewHeightBasedOnChildren(listView)
-        list.add(Model("Bücke","Eine normale Bücke",R.drawable.button_dectivated))
-        Utility.setListViewHeightBasedOnChildren(listView)
-        list.add(Model("Grätsche","Eine normale Grätsche",R.drawable.button_dectivated))
-        Utility.setListViewHeightBasedOnChildren(listView)
-
+        list.add(Model("Hocke","Eine normale Hocke", R.drawable.button_activated))
+        //Utility.setListViewHeightBasedOnChildren(listView)
+        list.add(Model("Bücke","Eine normale Bücke",R.drawable.button_activated))
+        /*list.add(Model("Grätsche","Eine normale Grätsche",R.drawable.button_activated))
+        list.add(Model("Halbe Schraube","Eine normale halbe Schraube",R.drawable.button_activated))
+        list.add(Model("Halbe Hocke","Eine halbe Schraube mit Hocke dabei",R.drawable.button_activated))
+        list.add(Model("Halbe Bücke","Eine halbe Schraube mit Bücke dabei",R.drawable.button_activated))
+        list.add(Model("Halbe Grätsche","Eine halbe Schraube mit Grätsche dabei",R.drawable.button_activated))
+        */
         listview.adapter = MyAdapter(this, R.layout.row, list)
 
-        var elementArray: IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+
+
 
         listview.setOnItemClickListener{ parent: AdapterView<*>, view: View, position:Int, id: Long ->
 
-            var imagename: String = "image$position"
-            val img: ImageView = findViewById(R.id.image1)
+            var img: ImageView = findViewById(R.id.image0)
+            //var textView: TextView = listview.getItemAtPosition(position)
+
+            /*when (position){
+
+                0 -> img = findViewById(R.id.image)
+                1 -> img = findViewById(R.id.image0)
+                2 -> img = findViewById(R.id.image2)
+                3 -> img = findViewById(R.id.image3)
+                4 -> img = findViewById(R.id.image4)
+                5 -> img = findViewById(R.id.image5)
+                6 -> img = findViewById(R.id.image6)
+                7 -> img = findViewById(R.id.image7)
+                8 -> img = findViewById(R.id.image8)
+                9 -> img = findViewById(R.id.image9)
+            }*/
+
+            // When the button's state in the array  is 'deactivated' -> set state in arrray to 'activated' and change the drawable
             if (elementArray.get(position)==0){
                 img.setImageResource(R.drawable.button_activated)
+                val drawable= ContextCompat.getDrawable(context,button_activated)
+                textView.setCompoundDrawables(@button_activated,null)
                 elementArray.set(position,1)
             }
             else if (elementArray.get(position)==1){

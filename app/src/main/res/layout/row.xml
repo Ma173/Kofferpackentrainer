@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/image1"
+        android:id="@+id/image0"
         android:src="@mipmap/ic_launcher"
     />
 
@@ -28,6 +28,7 @@
             android:textSize="20sp"
             android:layout_margin="5dp"
             android:textColor="#000"
+            android:drawableLeft="@drawable/button_activated"
         />
 
         <TextView
@@ -40,4 +41,5 @@
             android:textColor="#a9a9a9"
         />
     </LinearLayout>
+
 </LinearLayout>
