@@ -68,7 +68,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             "Rücken" to arrayOf(0, "Rücken", "Rücken", 0,32),
             "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0,33),
             "Salto vorwärts z. Rücken c" to arrayOf(0.5, "Rücken", "Rücken", 0,34),
-            "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Stand", 1,35),
+            "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 1,35),
             "Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1,36),
             "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1,37),
             "Wende in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 0,38)
@@ -244,25 +244,34 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return newElement
 
     }
-    fun generateNewExercise():MutableList<Pair<String,Array<Any>>> {
+    private fun generateNewExercise():MutableList<Pair<String,Array<Any>>> {
         var jumpsInExercise = 0
         var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
         while (jumpsInExercise<10){
-            var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
+            var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
+            var elementArray=UserSettings().elementArray
+            var elementId = newElement.second[4]
+            var gesperrte = arrayOf(10, 34)
             if (newExercise.size==0){
                 newElement = getNewElement("Stand")
-                var elementArray=UserSettings().elementArray
-                while (elementArray[newElement.second[5].toInt]==0){
+                var elementId = newElement.second[4]
+                while (elementId in gesperrte){//(elementArray[elementId.toInt()]==0){
                     newElement = getNewElement("Stand")
+                    var elementId = newElement.second[4]
                 }
             }
             else if (newExercise.size>0) {
                 var letztesElement=newExercise[newExercise.lastIndex]
                 newElement = getNewElement(letztesElement.second[2].toString()) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
+                var elementId = newElement.second[4]
                 var elementArray=UserSettings().elementArray
-                while (elementArray[newElement.second[5]]==0){
-                    newElement = getNewElement(letztesElement.second[2].toString())
+                if (jumpsInExercise==9){
+                    while (elementId in gesperrte || newElement.second[2]!="Stand"){
+                        newElement = getNewElement(letztesElement.second[2].toString())
+                        var elementId = newElement.second[4]
+                    }
                 }
+
             }
             newExercise.add(newElement)
             jumpsInExercise+=1

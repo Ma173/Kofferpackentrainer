@@ -54,7 +54,7 @@ class UserSettings : AppCompatActivity() {
             "Rücken" to arrayOf(0, "Rücken", "Rücken", 0),
             "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0),
             "Salto vorwärts z. Rücken c" to arrayOf(0.5, "Rücken", "Rücken", 0),
-            "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Stand", 1),
+            "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 1),
             "Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1),
             "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1),
             "Wende in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 0)
@@ -143,8 +143,8 @@ class UserSettings : AppCompatActivity() {
             // When the button's state in the array  is 'deactivated' -> set state in arrray to 'activated' and change the drawable
             if (elementArray.get(position)==0){
                 img.setImageResource(R.drawable.button_activated)
-                val drawable= ContextCompat.getDrawable(context,button_activated)
-                textView.setCompoundDrawables(@button_activated,null)
+                //val drawable= ContextCompat.getDrawable(context,button_activated)
+                //textView.setCompoundDrawables(@button_activated,null)
                 elementArray.set(position,1)
             }
             else if (elementArray.get(position)==1){
