@@ -59,14 +59,16 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="end"
         app:srcCompat="@android:drawable/ic_menu_edit" />
-    <android.support.v4.widget.NestedScrollView
+
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.v4.widget.NestedScrollView>
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="bottom"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        />
+
 
 </android.support.design.widget.CoordinatorLayout>

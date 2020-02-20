@@ -113,19 +113,23 @@ class UserSettings : AppCompatActivity() {
 
         listview.adapter = MyAdapter(this, R.layout.row, list)
 
-        var elementArray: IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)//Array (41)
+        var elementArray: IntArray = intArrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 
         listview.setOnItemClickListener{ parent: AdapterView<*>, view: View, position:Int, id: Long ->
+
+            var imagename: String = "image$position"
+            val img: ImageView = findViewById(R.id.image1)
+            if (elementArray.get(position)==0){
+                img.setImageResource(R.drawable.button_activated)
+                elementArray.set(position,1)
+            }
+            else if (elementArray.get(position)==1){
+                img.setImageResource(R.drawable.button_dectivated)
+                elementArray.set(position,0)
+
             if (position == 0) {
                 Toast.makeText(this@UserSettings,"Item $position geklickt", Toast.LENGTH_LONG).show()
-                val img: ImageView = findViewById(R.id.image1)
-                if (elementArray.get(position)==0){
-                    img.setImageResource(R.drawable.button_activated)
-                    elementArray.set(position,1)
-                }
-                else if (elementArray.get(position)==1){
-                    img.setImageResource(R.drawable.button_dectivated)
-                    elementArray.set(position,0)
+
                 }
 
 
