@@ -143,9 +143,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        //TODO: Hier den Import der Elemente-Textdatei in die Datenstruktur (z.B. HashMap) einbauen
-        //TODO: Nachdem alle Elemente importiert sind, können die in den Usersettings angezeigt werden
-        //fun Random.asJavaRandom(): Random
 
         //var erstesElement : Array<Any>? = elementeAusStand[randomNumber]
         //open val keys: elementeAusStand <K>

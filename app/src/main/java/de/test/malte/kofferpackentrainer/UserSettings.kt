@@ -110,20 +110,20 @@ class UserSettings : AppCompatActivity() {
         list.add(Model("Hocke","Eine normale Hocke", R.drawable.button_activated))
         //Utility.setListViewHeightBasedOnChildren(listView)
         list.add(Model("Bücke","Eine normale Bücke",R.drawable.button_activated))
-        /*list.add(Model("Grätsche","Eine normale Grätsche",R.drawable.button_activated))
+        list.add(Model("Grätsche","Eine normale Grätsche",R.drawable.button_activated))
         list.add(Model("Halbe Schraube","Eine normale halbe Schraube",R.drawable.button_activated))
         list.add(Model("Halbe Hocke","Eine halbe Schraube mit Hocke dabei",R.drawable.button_activated))
         list.add(Model("Halbe Bücke","Eine halbe Schraube mit Bücke dabei",R.drawable.button_activated))
         list.add(Model("Halbe Grätsche","Eine halbe Schraube mit Grätsche dabei",R.drawable.button_activated))
-        */
+
         listview.adapter = MyAdapter(this, R.layout.row, list)
 
 
 
 
-        listview.setOnItemClickListener{ parent: AdapterView<*>, view: View, position:Int, id: Long ->
+        listview.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
 
-            var img: ImageView = findViewById(R.id.image0)
+            var img: ImageView = view.findViewById(R.id.image0)
             //var textView: TextView = listview.getItemAtPosition(position)
 
             /*when (position){
@@ -141,30 +141,21 @@ class UserSettings : AppCompatActivity() {
             }*/
 
             // When the button's state in the array  is 'deactivated' -> set state in arrray to 'activated' and change the drawable
-            if (elementArray.get(position)==0){
+            if (elementArray.get(position) == 0) {
                 img.setImageResource(R.drawable.button_activated)
                 //val drawable= ContextCompat.getDrawable(context,button_activated)
                 //textView.setCompoundDrawables(@button_activated,null)
-                elementArray.set(position,1)
-            }
-            else if (elementArray.get(position)==1){
+                elementArray.set(position, 1)
+                val textView: TextView = view.findViewById(R.id.textView1) as TextView
+                var tappedElementName: String = textView.text.toString()
+                Toast.makeText(this@UserSettings, "$tappedElementName aktiviert", Toast.LENGTH_LONG).show()
+            } else if (elementArray.get(position) == 1) {
                 img.setImageResource(R.drawable.button_dectivated)
-                elementArray.set(position,0)
-
-            if (position == 0) {
-                Toast.makeText(this@UserSettings,"Item $position geklickt", Toast.LENGTH_LONG).show()
-
-                }
-
-
+                elementArray.set(position, 0)
+                val textView: TextView = view.findViewById(R.id.textView1) as TextView
+                var tappedElementName: String = textView.text.toString()
+                Toast.makeText(this@UserSettings, "$tappedElementName deaktiviert", Toast.LENGTH_LONG).show()
             }
-            if (position == 1) {
-                Toast.makeText(this@UserSettings,"Item ZWEI geklickt", Toast.LENGTH_LONG).show()
-            }
-            if (position == 2) {
-                Toast.makeText(this@UserSettings,"Item DREI geklickt", Toast.LENGTH_LONG).show()
-            }
-
         }
 
 
