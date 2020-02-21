@@ -18,7 +18,11 @@ class MyAdapter (var mCtx:Context, var resources:Int, var items:List<Model>):Arr
         val descriptionTextView:TextView = view.findViewById(R.id.textView2)
 
         var mItem:Model = items[position]
-        imageView.setImageDrawable(mCtx.resources.getDrawable(mItem.img))
+        val imageVal=mItem.img
+        if (imageVal!=null){
+            imageView.setImageDrawable(mCtx.resources.getDrawable(imageVal))
+        }
+
         titleTextView.text = mItem.title
         descriptionTextView.text = mItem.description
 

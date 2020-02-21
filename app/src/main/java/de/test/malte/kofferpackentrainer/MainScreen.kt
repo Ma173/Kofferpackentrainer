@@ -44,42 +44,43 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             "Grätsche in den Sitz" to arrayOf(0, "Stand", "Sitz", 2,12),
             "Rücken" to arrayOf(0.1,"Stand", "Rücken", 0,13),
             "Halbe Rücken" to arrayOf(0.2, "Stand", "Rücken", 0,14),
-            "Bauch" to arrayOf(0.1, "Stand","Bauch", 0,15)
+            "Bauch" to arrayOf(0.1, "Stand","Bauch", 0,15),
+            "halbe Bauch" to arrayOf(0.1, "Stand","Bauch", 0,16)
     )
     var elementeAusSitz :  Map<String,Array<Any>> = mapOf(
-            "Stand" to arrayOf(0, "Sitz", "Stand", 0,16),
-            "halbe Stand" to arrayOf(0.1, "Sitz", "Stand", 0,17),
-            "ganze Stand" to arrayOf(0.2, "Sitz", "Stand", 1,18),
-            "Sitz" to arrayOf(0, "Sitz", "Sitz", 0,19),
-            "halbe Sitz" to arrayOf(0.1, "Sitz", "Sitz", 0,20),
-            "ganze Sitz" to arrayOf(0.2, "Sitz", "Sitz", 0,21),
-            "Rücken" to arrayOf(0.1, "Sitz", "Rücken", 1,22),
-            "Halbe Rücken" to arrayOf(0.2, "Sitz", "Rücken", 1,23),
-            "Bauch" to arrayOf(0.1, "Sitz", "Bauch", 0,24)
+            "Stand" to arrayOf(0, "Sitz", "Stand", 0,17),
+            "halbe Stand" to arrayOf(0.1, "Sitz", "Stand", 0,18),
+            "ganze Stand" to arrayOf(0.2, "Sitz", "Stand", 1,19),
+            "Sitz" to arrayOf(0, "Sitz", "Sitz", 0,20),
+            "halbe Sitz" to arrayOf(0.1, "Sitz", "Sitz", 0,21),
+            "ganze Sitz" to arrayOf(0.2, "Sitz", "Sitz", 0,22),
+            "Rücken" to arrayOf(0.1, "Sitz", "Rücken", 1,23),
+            "Halbe Rücken" to arrayOf(0.2, "Sitz", "Rücken", 1,24),
+            "Bauch" to arrayOf(0.1, "Sitz", "Bauch", 0,25)
     )
     var elementeAusRuecken :  Map<String,Array<Any>> = mapOf(
-            "Stand" to arrayOf(0.1, "Rücken", "Stand", 0,25),
-            "halbe Stand" to arrayOf(0.2, "Rücken", "Stand", 0,26),
-            "ganze Stand" to arrayOf(0.3, "Rücken", "Stand", 1,27),
-            "Muffel" to arrayOf(0.3, "Rücken", "Stand", 0,28),
-            "Salto vorwärts z. Stand" to arrayOf(0.6, "Rücken", "Stand", 1,29),
-            "halbe Sitz" to arrayOf(0.2, "Rücken", "Sitz", 1,30),
-            "Muffel in denSitz" to arrayOf(0.3, "Rücken", "Sitz", 0,31),
-            "Rücken" to arrayOf(0, "Rücken", "Rücken", 0,32),
-            "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0,33),
-            "Salto vorwärts z. Rücken c" to arrayOf(0.5, "Rücken", "Rücken", 0,34),
-            "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 1,35),
-            "Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1,36),
-            "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1,37),
-            "Wende in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 0,38)
+            "Stand" to arrayOf(0.1, "Rücken", "Stand", 0, 26),
+            "halbe Stand" to arrayOf(0.2, "Rücken", "Stand", 0, 27),
+            "ganze Stand" to arrayOf(0.3, "Rücken", "Stand", 1, 28),
+            "halbe Sitz" to arrayOf(0.2, "Rücken", "Sitz", 1, 29),
+            "Rücken" to arrayOf(0, "Rücken", "Rücken", 0, 30),
+            "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0, 31),
+            "Muffel" to arrayOf(0.3, "Rücken", "Stand", 0, 32),
+            "Muffel in denSitz" to arrayOf(0.3, "Rücken", "Sitz", 0, 33),
+            "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1, 34),
+            "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 1, 35),
+            "Salto vw. in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 0, 36),
+            "Salto vw. in den Stand" to arrayOf(0.6, "Rücken", "Stand", 1, 37),
+            "Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1, 38),
+            "Wende in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 0, 39)
     )
     var elementeAusBauch :  Map<String,Array<Any>> = mapOf(
-            "Stand" to arrayOf(0.1, "Bauch", "Stand", 0,39),
-            "halbe Stand" to arrayOf(0.1, "Bauch", "Stand", 0,40),
-            "Rücken" to arrayOf(0.2, "Bauch", "Rücken", 0,41),
-            "Wende in den Rücken" to arrayOf(0.2, "Bauch", "Rücken", 0,42),
-            "Bauch" to arrayOf(0, "Bauch", "Bauch", 0,43),
-            "halbe Heli" to arrayOf(0.1, "Bauch", "Bauch", 0,44)
+            "Stand" to arrayOf(0.1, "Bauch", "Stand", 0,40),
+            "halbe Stand" to arrayOf(0.1, "Bauch", "Stand", 0,41),
+            "Rücken" to arrayOf(0.2, "Bauch", "Rücken", 0,42),
+            "Wende in den Rücken" to arrayOf(0.2, "Bauch", "Rücken", 0,43),
+            "Bauch" to arrayOf(0, "Bauch", "Bauch", 0,44),
+            "halbe Heli" to arrayOf(0.1, "Bauch", "Bauch", 0,45)
     )
 
     val random = Random()
@@ -264,6 +265,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 var elementArray=UserSettings().elementArray
                 if (jumpsInExercise==9){
                     while (elementId in gesperrte || newElement.second[2]!="Stand"){
+                        println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand. Hole neues Element")
                         newElement = getNewElement(letztesElement.second[2].toString())
                         var elementId = newElement.second[4]
                     }
