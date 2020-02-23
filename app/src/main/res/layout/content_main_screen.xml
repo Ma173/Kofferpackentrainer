@@ -33,7 +33,7 @@
         android:layout_height="200dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
-        android:text="@string/greeting"
+        android:text="@string/greeting_main_page"
         android:visibility="visible"
         android:saveEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"

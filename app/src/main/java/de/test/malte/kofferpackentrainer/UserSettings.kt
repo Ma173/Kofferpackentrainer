@@ -126,8 +126,8 @@ class UserSettings : AppCompatActivity() {
             listView.requestLayout()
         }
     }
-    //public var elementArray: IntArray = intArrayOf(1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
-    var elementArray = Array(50,{IntArray(1)}) // Array( elementId, {IntArray(activationStatus)})
+    public var elementArray: IntArray = intArrayOf(-1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,-1,1,1,1,1,1,1)
+    //var elementArray = Array(50,{IntArray(1)}) // Array( elementId, {IntArray(activationStatus)})
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -203,7 +203,7 @@ class UserSettings : AppCompatActivity() {
 
         // loading the array from file
         val context: Context = applicationContext
-        try {
+        /*try {
             val loadedStringOfDeactivatedElements=readFromFile(context,"deactivatedElementsFile")
             val loadedStringArray= loadedStringOfDeactivatedElements.split(",").toTypedArray()
             println("**********************LOADED STRING ARRAY $loadedStringArray")
@@ -215,12 +215,12 @@ class UserSettings : AppCompatActivity() {
 
         }
 
-
+*/
 
         // deactivating all elements that are saved as deactivated in the elementArray (list elements are initialized as activated above)
         // by setting the new Model - same title & description but different drawable
         for (element in elementArray.indices){
-            var activationOfElement: Int = elementArray[element][0]//elementArray[element%2]
+            var activationOfElement: Int = elementArray[element]//elementArray[element%2]
             var currentListItem=list.get(element)
             if (activationOfElement==0){
                 list.set(element,Model(currentListItem.title,currentListItem.description,R.drawable.button_dectivated))
@@ -255,18 +255,18 @@ class UserSettings : AppCompatActivity() {
             }*/
 
             // When the button's state in the array  is 'deactivated' -> set state in arrray to 'activated' and change the drawable
-            if (elementArray[position][0] == 0) {
+            if (elementArray[position] == 0) {
                 img.setImageResource(R.drawable.button_activated)
                 //val drawable= ContextCompat.getDrawable(context,button_activated)
                 //textView.setCompoundDrawables(@button_activated,null)
-                elementArray[position][0]=1
+                elementArray[position]=1
                 val textView: TextView = view.findViewById(R.id.textView1) as TextView
                 var tappedElementName: String = textView.text.toString()
                 Toast.makeText(this@UserSettings, "$tappedElementName aktiviert", Toast.LENGTH_LONG).show()
-            } else if (elementArray[position][0] == 1) {
+            } else if (elementArray[position] == 1) {
                 println("-------------------------- elementId ist in gesperrte oder das letzte Element ist nicht Stand. Hole neues Element")
                 img.setImageResource(R.drawable.button_dectivated)
-                elementArray[position][0]=0
+                elementArray[position]=0
                 val textView: TextView = view.findViewById(R.id.textView1) as TextView
                 var tappedElementName: String = textView.text.toString()
                 Toast.makeText(this@UserSettings, "$tappedElementName deaktiviert", Toast.LENGTH_LONG).show()

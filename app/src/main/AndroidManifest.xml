@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".NewUser"></activity>
         <activity
             android:name=".SavedExercises"
             android:label="@string/title_activity_saved_exercises"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserSettings"
             android:label="@string/title_activity_user_settings"
