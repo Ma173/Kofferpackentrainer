@@ -20,4 +20,5 @@
     <string name="username">USER</string>
     <string name="title_activity_saved_exercises">SavedExercises</string>
     <string name="placeholder_saved_exercises">Hier werden die gespeicherten Übungen angezeigt</string>
+
 </resources>
