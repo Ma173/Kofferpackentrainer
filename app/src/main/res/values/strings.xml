@@ -10,6 +10,7 @@
     <string name="springer_name">Springername</string>
     <string name="greeting_main_page">Willkommen beim KofferpackenTrainer!\nÜber den Aktualisieren-Button unten rechts kann einen neue Übung generiert werden.</string>
     <string name="greeting_new_user">Hallo SpringerIn!\nWie ist dein Name?</string>
+    <string name="ask_for_skill">Wie schätzt du deine Erfahrung \nim Trampolinturnen ein?</string>
     <string name="title_activity_user_settings">UserSettings</string>
     <string name="large_text">
         "Hier werden die sperrbaren Übungen zu sehen sein.\n\n"
