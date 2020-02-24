@@ -66,7 +66,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             "Rücken" to arrayOf(0, "Rücken", "Rücken", 0, 30),
             "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0, 31),
             "Muffel" to arrayOf(0.3, "Rücken", "Stand", 0, 32),
-            "Muffel in denSitz" to arrayOf(0.3, "Rücken", "Sitz", 0, 33),
+            "Muffel in den Sitz" to arrayOf(0.3, "Rücken", "Sitz", 0, 33),
             "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1, 34),
             "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 1, 35),
             "Salto vw. in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 0, 36),

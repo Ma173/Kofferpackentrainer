@@ -97,7 +97,7 @@ class UserSettings : AppCompatActivity() {
             "Rücken" to arrayOf(0, "Rücken", "Rücken", 0, 30),
             "Halbe Rücken" to arrayOf(0.3, "Rücken", "Rücken", 0, 31),
             "Muffel" to arrayOf(0.3, "Rücken", "Stand", 0, 32),
-            "Muffel in denSitz" to arrayOf(0.3, "Rücken", "Sitz", 0, 33),
+            "Muffel in den Sitz" to arrayOf(0.3, "Rücken", "Sitz", 0, 33),
             "Muffel in den Bauch" to arrayOf(0.2, "Rücken", "Bauch", 1, 34),
             "Muffel in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 1, 35),
             "Salto vw. in den Rücken" to arrayOf(0.5, "Rücken", "Rücken", 0, 36),
@@ -139,13 +139,20 @@ class UserSettings : AppCompatActivity() {
 
     public var userNames = mutableListOf<String>()
     fun firstTime() {
-        val sharedTime = getSharedPreferences("preferences_name", 0)
+        val sharedTime = getSharedPreferences("preferences_name2", 0)
         if (sharedTime.getBoolean("firstTime", true)) { //Your tutorial code
             sharedTime.edit().putBoolean("firstTime", false).apply()
             //TODO: Import user files like list of users
 
 
         } else { //When not using tutorial code
+            //Toast.makeText(this, "Sie waren schon in der Activity NewUser", Toast.LENGTH_LONG).show()
+            val intentFromNewUserActivity: Intent = getIntent();
+            var newUserName = intentFromNewUserActivity.getStringExtra("newUserName")
+            if (newUserName==null){
+                newUserName="defaultUser"
+            }
+            userNames.add(newUserName)
         }
     }
 
@@ -169,8 +176,10 @@ class UserSettings : AppCompatActivity() {
         setContentView(R.layout.activity_user_settings)
         //setSupportActionBar(toolbar)
         switchUser.setOnClickListener { view ->
-            Snackbar.make(view, "In Zukunft lässt sich hier der Username ändern", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            //Snackbar.make(view, "In Zukunft lässt sich hier der Username ändern", Snackbar.LENGTH_LONG)
+                    //.setAction("Action", null).show()
+            val jumpToNewUserIntent = Intent(this, NewUser::class.java)
+            startActivity(jumpToNewUserIntent)
         }
 
         back_and_save.setOnClickListener {
@@ -260,7 +269,8 @@ class UserSettings : AppCompatActivity() {
 
 */
         // If no user is in the usersDropdown -> send user to activity NewUser
-        if (usersDropdown.getAdapter().getCount()==0){
+        //usersDropdown.getAdapter().getCount()==0)
+        if (userNames.size==0){
             val intent = Intent(this, NewUser::class.java)
             startActivity(intent)
         }

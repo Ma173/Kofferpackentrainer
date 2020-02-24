@@ -3,10 +3,11 @@ package de.test.malte.kofferpackentrainer
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_user.*
+
 
 class NewUser : AppCompatActivity() {
 
@@ -44,8 +45,12 @@ class NewUser : AppCompatActivity() {
 
             val newUserName = usernameEditText.text.toString()
             UserSettings().userNames.add(newUserName)
+            val newIntent = Intent(this@NewUser, UserSettings::class.java)
+            intent.putExtra("newUserName", newUserName)
+            startActivity(intent)
 
-            Toast.makeText(this, "SpringerIn $newUserName angelegt", Toast.LENGTH_LONG).show()
+            val lengthUserNames=UserSettings().userNames.size
+            Toast.makeText(this, "SpringerIn $newUserName angelegt.", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
 
             val intent = Intent(this, UserSettings::class.java)
             startActivity(intent)

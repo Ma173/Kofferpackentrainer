@@ -31,11 +31,11 @@
 
             <Spinner
                 android:id="@+id/PickUserDropdown"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown"/>
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:id="@+id/username"
