@@ -243,6 +243,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
     }
     private fun generateNewExercise():MutableList<Pair<String,Array<Any>>> {
+        exercise.visibility = View.VISIBLE
+        //exercise.setVisibity()
         var jumpsInExercise = 0
         var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
         while (jumpsInExercise<10){

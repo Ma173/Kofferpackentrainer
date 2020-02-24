@@ -29,6 +29,14 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
+            <Spinner
+                android:id="@+id/PickUserDropdown"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"/>
+
             <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
@@ -36,7 +44,8 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:autoSizeTextType="uniform"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/username" />
+                android:text="@string/username"
+                android:visibility="gone" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

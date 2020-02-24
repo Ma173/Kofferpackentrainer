@@ -1,18 +1,24 @@
 package de.test.malte.kofferpackentrainer
 
+//import jdk.nashorn.internal.runtime.ScriptingFunctions.readLine
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.View.MeasureSpec
 import android.widget.*
-//import jdk.nashorn.internal.runtime.ScriptingFunctions.readLine
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import java.io.*
 
+
+//TODO: Daten/ Variablen, die dauerhaft gespeichert werden müssen:
+// die mutableList: userNames
+// das array der gesperrten Elemente: elementArray
 
 class UserSettings : AppCompatActivity() {
 
@@ -128,8 +134,37 @@ class UserSettings : AppCompatActivity() {
     }
     public var elementArray: IntArray = intArrayOf(-1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,-1,1,1,1,1,1,1)
     //var elementArray = Array(50,{IntArray(1)}) // Array( elementId, {IntArray(activationStatus)})
+    //create a list of items for the spinner
+    //public var userNames = emptyArray<String>()
+
+    public var userNames = mutableListOf<String>()
+    fun firstTime() {
+        val sharedTime = getSharedPreferences("preferences_name", 0)
+        if (sharedTime.getBoolean("firstTime", true)) { //Your tutorial code
+            sharedTime.edit().putBoolean("firstTime", false).apply()
+            //TODO: Import user files like list of users
+
+
+        } else { //When not using tutorial code
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        firstTime()
+
+        val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+        if (!prefs.getBoolean("firstStart", true)) {
+
+
+
+            //startActivity(Intent(this@UserSettings, NewUser::class.java))
+            //finish() // Finish the current one, is like forwarding directly to the second one
+        }
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_settings)
         //setSupportActionBar(toolbar)
@@ -201,6 +236,14 @@ class UserSettings : AppCompatActivity() {
         list.add(Model("Bauch","Bauch > Bauch",R.drawable.button_activated))
         list.add(Model("halbe Heli","Bauch > halbe Heli (= halbe Bauch)",R.drawable.button_activated))
 
+        //get the spinner from the xml
+        val usersDropdown: Spinner = findViewById(R.id.PickUserDropdown)
+
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        val dropdownAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userNames)
+        usersDropdown.setAdapter(dropdownAdapter)
+
+
         // loading the array from file
         val context: Context = applicationContext
         /*try {
@@ -216,7 +259,11 @@ class UserSettings : AppCompatActivity() {
         }
 
 */
-
+        // If no user is in the usersDropdown -> send user to activity NewUser
+        if (usersDropdown.getAdapter().getCount()==0){
+            val intent = Intent(this, NewUser::class.java)
+            startActivity(intent)
+        }
         // deactivating all elements that are saved as deactivated in the elementArray (list elements are initialized as activated above)
         // by setting the new Model - same title & description but different drawable
         for (element in elementArray.indices){
@@ -283,5 +330,6 @@ class UserSettings : AppCompatActivity() {
         val deactivatedElementsArrayString=elementArray.contentToString()
         writeToFile(context,deactivatedElementsArrayString,"deactivatedElementsFile")
     }
+
 }
 
