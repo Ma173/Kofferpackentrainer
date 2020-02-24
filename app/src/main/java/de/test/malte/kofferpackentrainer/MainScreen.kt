@@ -13,10 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
-import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
 import kotlinx.android.synthetic.main.content_main_screen.*
@@ -251,25 +248,39 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
             var elementArray=UserSettings().elementArray
             var elementId = newElement.second[4]
-            var gesperrte = arrayOf(10, 34)
+            val gesperrte = arrayOf(11, 24, 39, 40)
             if (newExercise.size==0){
                 newElement = getNewElement("Stand")
-                var elementId = newElement.second[4]
-                while (elementId in gesperrte){//(elementArray[elementId.toInt()]==0){
+
+                while (elementArray[elementId as Int]==0){ //while (elementId in gesperrte){
                     newElement = getNewElement("Stand")
-                    var elementId = newElement.second[4]
+                    elementId = newElement.second[4]
                 }
             }
             else if (newExercise.size>0) {
-                var letztesElement=newExercise[newExercise.lastIndex]
+                val letztesElement=newExercise[newExercise.lastIndex]
                 newElement = getNewElement(letztesElement.second[2].toString()) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
-                var elementId = newElement.second[4]
-                var elementArray=UserSettings().elementArray
+                elementId = newElement.second[4]
+                while (elementId in gesperrte){//(elementArray[elementId as Int]==0){
+                    var wertImArray = elementArray[elementId as Int]
+                    Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                    println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
+                    newElement = getNewElement(letztesElement.second[2].toString())
+                    elementId = newElement.second[4]
+
+                    wertImArray = elementArray[elementId as Int]
+                    Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                    println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
+                }
                 if (jumpsInExercise==9){
-                    while (elementId in gesperrte || newElement.second[2]!="Stand"){
+                    while (elementId in gesperrte || newElement.second[2]!="Stand"){//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
+                        val letzteselement= newElement.second[2]//zur Info
+                        var wertImArray = elementArray[elementId as Int]
                         println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand. Hole neues Element")
                         newElement = getNewElement(letztesElement.second[2].toString())
-                        var elementId = newElement.second[4]
+                        elementId = newElement.second[4]
+                        wertImArray = elementArray[elementId as Int]
+                        println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                     }
                 }
 

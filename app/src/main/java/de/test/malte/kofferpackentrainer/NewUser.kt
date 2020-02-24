@@ -10,6 +10,9 @@ import kotlinx.android.synthetic.main.activity_new_user.*
 
 
 class NewUser : AppCompatActivity() {
+    public fun getNewUserSkill(): String{
+        return userSkill
+    }
 
     public var userSkill= ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +54,10 @@ class NewUser : AppCompatActivity() {
 
             val lengthUserNames=UserSettings().userNames.size
             Toast.makeText(this, "SpringerIn $newUserName angelegt.", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+
+            val sharedUserData = getSharedPreferences(newUserName, 0)
+            sharedUserData.edit().putString(newUserName,userSkill).apply()
+            //Toast.makeText(this, "Speichere für User $newUserName den Skill $userSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
 
             val intent = Intent(this, UserSettings::class.java)
             startActivity(intent)

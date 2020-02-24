@@ -133,7 +133,55 @@ class UserSettings : AppCompatActivity() {
         }
     }
     public var elementArray: IntArray = intArrayOf(-1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,-1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,-1,1,1,1,1,1,1)
-    //var elementArray = Array(50,{IntArray(1)}) // Array( elementId, {IntArray(activationStatus)})
+
+    fun setDeactivatedElementsToSkill(skill: String?){
+        when (skill) {
+            "low" -> {
+                elementArray[11]=0
+                elementArray[12]=0
+                elementArray[13]=0
+                elementArray[15]=0
+                elementArray[16]=0
+                elementArray[17]=0
+                elementArray[21]=0
+                elementArray[24]=0
+                elementArray[26]=0
+                elementArray[27]=0
+                elementArray[31]=0
+                elementArray[32]=0
+                elementArray[34]=0
+                elementArray[35]=0
+                elementArray[36]=0
+                elementArray[37]=0
+                elementArray[38]=0
+                elementArray[39]=0
+                elementArray[40]=0
+                elementArray[41]=0
+                elementArray[42]=0
+                elementArray[44]=0
+                elementArray[45]=0
+                elementArray[46]=0
+                elementArray[47]=0
+                elementArray[48]=0
+                elementArray[49]=0
+            }
+            "medium" -> {
+                elementArray[11]=0
+                elementArray[21]=0
+                elementArray[24]=0
+                elementArray[31]=0
+                elementArray[38]=0
+                elementArray[39]=0
+                elementArray[40]=0
+                }
+            "high" -> {
+
+            }
+        }
+
+    }
+
+    //var elementArray = Array(45)//arrayOf<int,array(50,{IntArray(1)}) // Array( elementId, {IntArray(activationStatus)})
     //create a list of items for the spinner
     //public var userNames = emptyArray<String>()
 
@@ -152,6 +200,12 @@ class UserSettings : AppCompatActivity() {
             if (newUserName==null){
                 newUserName="defaultUser"
             }
+            // In der Activity "NewUser" heißt es: sharedUserData.edit().putString(newUserName,userSkill).apply()
+            val sharedUserData = getSharedPreferences(newUserName,0)
+            val newUserSkill = NewUser().getNewUserSkill()//sharedUserData.getString(newUserName,userSkill)
+            setDeactivatedElementsToSkill(newUserSkill)
+            Toast.makeText(this, "Elemente deaktiviert für Skill: $newUserSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+
             userNames.add(newUserName)
         }
     }
