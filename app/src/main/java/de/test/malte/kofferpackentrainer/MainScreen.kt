@@ -6,8 +6,8 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -17,7 +17,8 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
 import kotlinx.android.synthetic.main.content_main_screen.*
-import java.util.Random
+import java.util.*
+
 
 //import kotlinx.android.synthetic.main.main_screen.*
 
@@ -118,8 +119,28 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //editText.setText(userText)
         greeting.visibility = View.INVISIBLE
     }
+    fun getContext():Context{
+        val context: Context = applicationContext
+        return context
+    }
+
+    var currentUser=""
+
+    fun getDeactivatedElementsArray():List<String>{
+        //val currentUser = getSharedPreferences("currentUser",0)
+        val context=getContext()
+        val filename =currentUser+"_deactivatedElementsFile"
+        //println("$filename ist der Dateiname ************")
+        val deactivatedElementsFile =UserSettings().readFromFile(context,filename)
+        val deactivatedElementsArray = deactivatedElementsFile.split(",")
+        println("------------------------- loaded deactivatedElementsFile: $deactivatedElementsArray")
+        return deactivatedElementsArray
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //val context: Context = applicationContext
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
         setSupportActionBar(toolbar)
@@ -129,10 +150,18 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             var s = savedInstanceState.getString("text")
         }
 
+        val extras = intent.extras
+        if (extras != null) {
+            currentUser = extras.getString("currentUser")
+            subtitle.setText(currentUser)
+        }
+
         btn_new_exercise.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -244,15 +273,76 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //exercise.setVisibity()
         var jumpsInExercise = 0
         var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
+
+        /*var gesperrteElemente = arrayListOf<Int>()
+        val elementArray = UserSettings().elementArray
+
+
+        val gesperrte = arrayOf(11, 24, 39, 40)*/
+        val deactivatedElementsArray = getDeactivatedElementsArray()
+        val deactivatedElementsArrayClean = IntArray(deactivatedElementsArray.size)//.size-4)
+        println("Bereinige das deactivatedElementsArray..............")
+        val erster= deactivatedElementsArray[0]
+        val zweiter= deactivatedElementsArray[1]
+        val typErster = deactivatedElementsArray[0].javaClass.name
+        val laenge = deactivatedElementsArray.size
+        //println("Der zweite Eintrag von deactivatedElementsArray ist $erster mit dem Typ $typErster. Länge des Arrays/ der Liste ist: $laenge\n\n")
+        var currentCount=0
+        for (element in deactivatedElementsArray){//for ((index,value) in deactivatedElementsArray.withIndex()){
+
+            val index = currentCount
+            val element=element.replace("\\s".toRegex(),"")
+            //println("Gehe durch das deactivatedElementsArray. Aktueller count: $currentCount. Aktuelles Element: $element")
+            /*if (element=="\n[-1"){
+                println("ääääääääääääääääääääääääää Element ist: [-1")
+            }*/
+            when (element){
+                "-1" -> {
+                        println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
+                        //deactivatedElementsArrayClean[index] = element.toInt()
+                        }
+                "\n[-1" -> {
+                    println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
+                    //deactivatedElementsArrayClean.set(index,element.toInt())
+                        }
+                "-1]" -> {
+                    println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
+                    deactivatedElementsArrayClean.set(index,element.toInt())
+                        }
+                "0" -> {
+                    println("----Füge deaktiviertes Element zu cleanArray hinzu: Id ist $index")
+                    deactivatedElementsArrayClean.set(index,element.toInt())
+                    currentCount+=1
+                        }
+                "1" -> {
+
+                    println("Füge Aktiviertes Element zu cleanArray hinzu: Id ist $index")
+                    deactivatedElementsArrayClean.set(index,element.toInt())
+                    currentCount+=1
+                        }
+
+
+            }
+
+        }
+        val deactivatedElementsArrayCleanString = deactivatedElementsArrayClean.toString()
+        println("cleaned deactivatedElementsArray:")// $deactivatedElementsArrayCleanString")
+        for (element in deactivatedElementsArrayClean){
+            print(element)
+        }
         while (jumpsInExercise<10){
+            println("\n\n ----------------------------------------")
             var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
             var elementArray=UserSettings().elementArray
             var elementId = newElement.second[4]
-            val gesperrte = arrayOf(11, 24, 39, 40)
+
             if (newExercise.size==0){
                 newElement = getNewElement("Stand")
+                if (newElement.second[4] is Int){elementId = newElement.second[4]}
 
-                while (elementArray[elementId as Int]==0){ //while (elementId in gesperrte){
+                println("+ Erste gezogene Id ist: $elementId. Das Element ist $newElement")
+
+                while (deactivatedElementsArrayClean[elementId as Int]==0){//(elementArray[elementId as Int]==0){ //while (elementId in gesperrte){
                     newElement = getNewElement("Stand")
                     elementId = newElement.second[4]
                 }
@@ -261,7 +351,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 val letztesElement=newExercise[newExercise.lastIndex]
                 newElement = getNewElement(letztesElement.second[2].toString()) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
                 elementId = newElement.second[4]
-                while (elementId in gesperrte){//(elementArray[elementId as Int]==0){
+                println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
+                while (deactivatedElementsArrayClean[elementId as Int]==0){//(elementArray[elementId as Int]==0){
                     var wertImArray = elementArray[elementId as Int]
                     Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
@@ -273,10 +364,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
                 if (jumpsInExercise==9){
-                    while (elementId in gesperrte || newElement.second[2]!="Stand"){//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
+                    while (deactivatedElementsArrayClean[elementId as Int]==0 || newElement.second[2]!="Stand"){//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
                         val letzteselement= newElement.second[2]//zur Info
                         var wertImArray = elementArray[elementId as Int]
-                        println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand. Hole neues Element")
+                        println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
                         newElement = getNewElement(letztesElement.second[2].toString())
                         elementId = newElement.second[4]
                         wertImArray = elementArray[elementId as Int]
