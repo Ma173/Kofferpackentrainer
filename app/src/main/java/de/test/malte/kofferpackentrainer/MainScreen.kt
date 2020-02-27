@@ -155,6 +155,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             currentUser = extras.getString("currentUser")
             subtitle.setText(currentUser)
         }
+        else{
+            currentUser = "defaultUser"
+            subtitle.setText(currentUser)
+        }
 
         btn_new_exercise.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -282,8 +286,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         val deactivatedElementsArray = getDeactivatedElementsArray()
         val deactivatedElementsArrayClean = IntArray(deactivatedElementsArray.size)//.size-4)
         println("Bereinige das deactivatedElementsArray..............")
-        val erster= deactivatedElementsArray[0]
-        val zweiter= deactivatedElementsArray[1]
+        //val erster= deactivatedElementsArray[0]
+        //val zweiter= deactivatedElementsArray[1]
         val typErster = deactivatedElementsArray[0].javaClass.name
         val laenge = deactivatedElementsArray.size
         //println("Der zweite Eintrag von deactivatedElementsArray ist $erster mit dem Typ $typErster. Länge des Arrays/ der Liste ist: $laenge\n\n")
