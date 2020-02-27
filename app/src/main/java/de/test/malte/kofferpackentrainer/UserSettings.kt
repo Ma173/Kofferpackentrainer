@@ -131,45 +131,45 @@ class UserSettings : AppCompatActivity() {
     public var elementArray: IntArray = intArrayOf(-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, -1, 1, 1, 1, 1, 1, 1)
 
     // Ändert das Array der deaktivierten Übungen. Wird aufgerufen, bevor das Array in die ListView geladen wird
-    fun setDeactivatedElementsToSkill(skill: String?) {
+    fun setDeactivatedElementsToSkill(skill: String?,arrayOfDeactivatedElements:IntArray) {
         when (skill) {
             "low" -> {
-                elementArray[11] = 0
-                elementArray[12] = 0
-                elementArray[13] = 0
-                elementArray[15] = 0
-                elementArray[16] = 0
-                elementArray[17] = 0
-                elementArray[21] = 0
-                elementArray[24] = 0
-                elementArray[26] = 0
-                elementArray[27] = 0
-                elementArray[31] = 0
-                elementArray[32] = 0
-                elementArray[34] = 0
-                elementArray[35] = 0
-                elementArray[36] = 0
-                elementArray[37] = 0
-                elementArray[38] = 0
-                elementArray[39] = 0
-                elementArray[40] = 0
-                elementArray[41] = 0
-                elementArray[42] = 0
-                elementArray[44] = 0
-                elementArray[45] = 0
-                elementArray[46] = 0
-                elementArray[47] = 0
-                elementArray[48] = 0
-                elementArray[49] = 0
+                arrayOfDeactivatedElements[11] = 0
+                arrayOfDeactivatedElements[12] = 0
+                arrayOfDeactivatedElements[13] = 0
+                arrayOfDeactivatedElements[15] = 0
+                arrayOfDeactivatedElements[16] = 0
+                arrayOfDeactivatedElements[17] = 0
+                arrayOfDeactivatedElements[21] = 0
+                arrayOfDeactivatedElements[24] = 0
+                arrayOfDeactivatedElements[26] = 0
+                arrayOfDeactivatedElements[27] = 0
+                arrayOfDeactivatedElements[31] = 0
+                arrayOfDeactivatedElements[32] = 0
+                arrayOfDeactivatedElements[34] = 0
+                arrayOfDeactivatedElements[35] = 0
+                arrayOfDeactivatedElements[36] = 0
+                arrayOfDeactivatedElements[37] = 0
+                arrayOfDeactivatedElements[38] = 0
+                arrayOfDeactivatedElements[39] = 0
+                arrayOfDeactivatedElements[40] = 0
+                arrayOfDeactivatedElements[41] = 0
+                arrayOfDeactivatedElements[42] = 0
+                arrayOfDeactivatedElements[44] = 0
+                arrayOfDeactivatedElements[45] = 0
+                arrayOfDeactivatedElements[46] = 0
+                arrayOfDeactivatedElements[47] = 0
+                arrayOfDeactivatedElements[48] = 0
+                arrayOfDeactivatedElements[49] = 0
             }
             "medium" -> {
-                elementArray[11] = 0
-                elementArray[21] = 0
-                elementArray[24] = 0
-                elementArray[31] = 0
-                elementArray[38] = 0
-                elementArray[39] = 0
-                elementArray[40] = 0
+                arrayOfDeactivatedElements[11] = 0
+                arrayOfDeactivatedElements[21] = 0
+                arrayOfDeactivatedElements[24] = 0
+                arrayOfDeactivatedElements[31] = 0
+                arrayOfDeactivatedElements[38] = 0
+                arrayOfDeactivatedElements[39] = 0
+                arrayOfDeactivatedElements[40] = 0
             }
             "high" -> {
 
@@ -200,7 +200,7 @@ class UserSettings : AppCompatActivity() {
             // In der Activity "NewUser" heißt es: sharedUserData.edit().putString(newUserName,userSkill).apply()
             val sharedUserData = getSharedPreferences(newUserName, 0)
             val newUserSkill = NewUser().getNewUserSkill()//sharedUserData.getString(newUserName,userSkill)
-            setDeactivatedElementsToSkill(newUserSkill)
+            setDeactivatedElementsToSkill(newUserSkill,elementArray)
             Toast.makeText(this, "Elemente deaktiviert für Skill: $newUserSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
 
             userNames.add(newUserName)

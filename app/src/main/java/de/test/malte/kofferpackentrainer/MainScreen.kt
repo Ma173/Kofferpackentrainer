@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
@@ -127,18 +126,37 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     var currentUser=""
     public var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
 
+
     fun getDeactivatedElementsArray():List<String>{
         //val currentUser = getSharedPreferences("currentUser",0)
         val context=getContext()
         val filename =currentUser+"_deactivatedElementsFile"
         //println("$filename ist der Dateiname ************")
-        val deactivatedElementsFile =UserSettings().readFromFile(context,filename)
-        val deactivatedElementsArray = deactivatedElementsFile.split(",")
-        println("------------------------- loaded deactivatedElementsFile: $deactivatedElementsArray")
-        return deactivatedElementsArray
+        var deactivatedElementsFile = ""
+        var deactivatedElementsList = listOf<String>()//mutableListOf<String>()
+        var outputListString =""
+
+        deactivatedElementsFile =UserSettings().readFromFile(context,filename)
+
+        if (deactivatedElementsFile!=""){
+            deactivatedElementsList = deactivatedElementsFile.split(",")
+            println("------------------------- loaded deactivatedElementsFile: $deactivatedElementsList")
+        }
+        else{
+            val deactivatedElementsArray =intArrayOf(-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, -1, 1, 1, 1, 1, 1, 1)
+            UserSettings().setDeactivatedElementsToSkill("medium",deactivatedElementsArray)
+            deactivatedElementsList = mutableListOf<String>()
+            for (element in deactivatedElementsArray){
+                deactivatedElementsList.add(element.toString())
+            }
+
+            println("_________________ no deactivatedElementsFile found. Setting to default: $deactivatedElementsList")
+        }
+
+        return deactivatedElementsList
     }
 
-
+    var continuousMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //val context: Context = applicationContext
@@ -160,6 +178,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             currentUser = "defaultUser"
             subtitle.setText(currentUser)
         }
+
+        //exercise.setEnabled(false)
+        exercise.setFocusable(false)
 
         /*
         btn_new_exercise.setOnClickListener { view ->
@@ -199,8 +220,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             greeting.visibility = View.INVISIBLE
             //list_elemente_der_uebung.visibility = View.VISIBLE
 
-            val elementList = findViewById<ListView>(R.id.list_elemente_der_uebung)
-            var newExercise = generateNewExercise()
+            //val elementList = findViewById<ListView>(R.id.list_elemente_der_uebung)
+            val newExercise = generateNewExercise()
+            val length = newExercise.size
+            println("........... Length of newExercise: $length")
             val listItems = arrayOfNulls<String>(newExercise.size)
 
             var exerciseString = ""
@@ -216,6 +239,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
 
         }
+
 
 
 
@@ -288,17 +312,36 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return newElement
 
     }
+
+
     private fun generateNewExercise():MutableList<Pair<String,Array<Any>>> {
+
+        // Mode for adding elements to the exercise or creating always a new one of 10
+
+
+        val sw = findViewById(R.id.continuousExerciseSwitch) as Switch
+        sw.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) { // The toggle is enabled
+                continuousMode=true
+            } else { // The toggle is disabled
+                continuousMode = false
+            }
+        }
+
+
+        if (continuousMode==false){
+            newExercise.clear()
+        }
         exercise.visibility = View.VISIBLE
         //exercise.setVisibity()
         var jumpsInExercise = 0
-
+        val deactivatedElementsArray = getDeactivatedElementsArray()
         /*var gesperrteElemente = arrayListOf<Int>()
         val elementArray = UserSettings().elementArray
 
 
         val gesperrte = arrayOf(11, 24, 39, 40)*/
-        val deactivatedElementsArray = getDeactivatedElementsArray()
+
         val deactivatedElementsArrayClean = IntArray(deactivatedElementsArray.size)//.size-4)
         println("Bereinige das deactivatedElementsArray..............")
         //val erster= deactivatedElementsArray[0]
@@ -373,13 +416,13 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
                 while (deactivatedElementsArrayClean[elementId as Int]==0){//(elementArray[elementId as Int]==0){
                     var wertImArray = elementArray[elementId as Int]
-                    Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                    //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
                     newElement = getNewElement(letztesElement.second[2].toString())
                     elementId = newElement.second[4]
 
                     wertImArray = elementArray[elementId as Int]
-                    Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                    //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
                 if (jumpsInExercise==9){
@@ -465,16 +508,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return true
     }
 
-    fun onNewExerciseButtonSelected(button: FloatingActionButton) {
-        when(button.id){
-            R.id.btn_new_exercise -> {
-                //btn_new_exercise.setOnClickListener {
-                val greeting = findViewById<View>(R.id.greeting)
-                greeting.visibility = View.INVISIBLE
-
-                }
-            }
-        }
     }
 
 
