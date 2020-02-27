@@ -385,7 +385,7 @@ class UserSettings : AppCompatActivity() {
 
 
             //Saving all user-related files and going back to MainScreen
-            back_and_save.setOnClickListener {
+            back_and_save_savedExercises.setOnClickListener {
                 val deactivatedElementsArrayString = elementArray.contentToString()
                 val currentUser = usersDropdown.getSelectedItem().toString()
                 val deactivatedElementsFilename = currentUser + "_deactivatedElementsFile"

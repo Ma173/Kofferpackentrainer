@@ -125,6 +125,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     }
 
     var currentUser=""
+    public var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
 
     fun getDeactivatedElementsArray():List<String>{
         //val currentUser = getSharedPreferences("currentUser",0)
@@ -160,11 +161,12 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             subtitle.setText(currentUser)
         }
 
+        /*
         btn_new_exercise.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-
+        */
 
 
         val toggle = ActionBarDrawerToggle(
@@ -215,10 +217,24 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         }
 
+
+
+        // Saving the displayed exercise
         btn_save_exercise.setOnClickListener {view ->
             Snackbar.make(view, "Zurzeit kein Speichern möglich", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             buttonEffect(btn_save_exercise)
+
+            val intent = Intent(this, SavedExercises::class.java)
+            var currentExercise=""
+            for (element in newExercise){
+                val firstPart=element.first
+                currentExercise+="$firstPart\n"
+            }
+            newExercise.toString()
+            intent.putExtra("currentExercise", currentExercise)
+            startActivity(intent)
+
 
         }
 
@@ -276,7 +292,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         exercise.visibility = View.VISIBLE
         //exercise.setVisibity()
         var jumpsInExercise = 0
-        var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
 
         /*var gesperrteElemente = arrayListOf<Int>()
         val elementArray = UserSettings().elementArray

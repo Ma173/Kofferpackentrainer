@@ -9,9 +9,12 @@
     tools:showIn="@layout/activity_saved_exercises">
 
     <TextView
+        android:id="@+id/placeholderSavedExercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/placeholder_saved_exercises" />
+        android:text="@string/placeholder_saved_exercises"
+        android:textAlignment="textStart"
+        android:textSize="24sp" />
 
 </android.support.v4.widget.NestedScrollView>
