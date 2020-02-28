@@ -20,7 +20,7 @@ import java.io.*
 
 class UserSettings : AppCompatActivity() {
 
-    private fun writeToFile(context: Context, data: String, filename: String) {
+    fun writeToFile(context: Context, data: String, filename: String) {
         try {
             val outputStreamWriter = OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE))
             outputStreamWriter.write(data)
@@ -30,7 +30,7 @@ class UserSettings : AppCompatActivity() {
         }
     }
 
-    public fun readFromFile(context: Context, filename: String): String {
+    fun readFromFile(context: Context, filename: String): String {
         var ret = ""
         try {
             val inputStream: InputStream? = context.openFileInput(filename)
@@ -300,7 +300,10 @@ class UserSettings : AppCompatActivity() {
 
         // loading the array from file
         val context: Context = applicationContext
-        val filenameRead = usersDropdown.getSelectedItem().toString() + "_deactivatedElementsFile"
+        //val currentUsername = usersDropdown.getSelectedItem()
+        val currentUsername = readFromFile(context,"lastSessionUser")
+        println("9999999999 currentUsername: $currentUsername")
+        val filenameRead = currentUsername.toString() + "_deactivatedElementsFile"
         val loadedStringOfDeactivatedElements = readFromFile(context, filenameRead)
         val loadedStringArray = loadedStringOfDeactivatedElements.split(",").toTypedArray()
         println("**********************LOADED STRING ARRAY $loadedStringArray")

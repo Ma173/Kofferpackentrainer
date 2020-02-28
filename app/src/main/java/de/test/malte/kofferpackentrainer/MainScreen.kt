@@ -155,6 +155,17 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         return deactivatedElementsList
     }
+    //getting last session's userName
+    fun getLastSessionUserName():String{
+        var lastSessionUserName = ""
+        val context=getContext()
+        lastSessionUserName=UserSettings().readFromFile(context,"lastSessionUser")
+        if (lastSessionUserName==""){
+            lastSessionUserName="defaultUser"
+        }
+
+        return lastSessionUserName
+    }
 
     var continuousMode = false
 
@@ -169,7 +180,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             var s = savedInstanceState.getString("text")
         }
 
-        val extras = intent.extras
+        currentUser=getLastSessionUserName()
+        subtitle.text = currentUser
+
+        /*val extras = intent.extras
         if (extras != null) {
             currentUser = extras.getString("currentUser")
             subtitle.setText(currentUser)
@@ -177,7 +191,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         else{
             currentUser = "defaultUser"
             subtitle.setText(currentUser)
-        }
+        }*/
 
         //exercise.setEnabled(false)
         exercise.setFocusable(false)
@@ -261,6 +275,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
 
         }
+
+        val context: Context = applicationContext
+        UserSettings().writeToFile(context,currentUser,"lastSessionUser")
 
 
         }
