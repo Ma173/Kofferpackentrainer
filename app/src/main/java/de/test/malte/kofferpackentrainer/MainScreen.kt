@@ -157,9 +157,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     }
     //getting last session's userName
     fun getLastSessionUserName():String{
-        var lastSessionUserName = ""
+        var lastSessionUserName: String = ""
         val context=getContext()
-        lastSessionUserName=UserSettings().readFromFile(context,"lastSessionUser")
+        lastSessionUserName=UserSettings().readFromFile(context,"lastSessionUserName")
         if (lastSessionUserName==""){
             lastSessionUserName="defaultUser"
         }
@@ -277,7 +277,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         }
 
         val context: Context = applicationContext
-        UserSettings().writeToFile(context,currentUser,"lastSessionUser")
+        UserSettings().writeToFile(context,currentUser,"lastSessionUserName")
 
 
         }

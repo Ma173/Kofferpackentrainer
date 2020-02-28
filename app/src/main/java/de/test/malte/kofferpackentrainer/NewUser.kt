@@ -1,5 +1,6 @@
 package de.test.malte.kofferpackentrainer
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -58,6 +59,10 @@ class NewUser : AppCompatActivity() {
             val sharedUserData = getSharedPreferences(newUserName, 0)
             sharedUserData.edit().putString(newUserName,userSkill).apply()
             //Toast.makeText(this, "Speichere für User $newUserName den Skill $userSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+
+            val context: Context = applicationContext
+            UserSettings().writeToFile(context,newUserName,"lastSessionUserName")
+            UserSettings().writeToFile(context,userSkill,"lastSessionUserSkill")
 
             val intent = Intent(this, UserSettings::class.java)
             startActivity(intent)

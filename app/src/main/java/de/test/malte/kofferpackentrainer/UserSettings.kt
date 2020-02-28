@@ -183,6 +183,10 @@ class UserSettings : AppCompatActivity() {
     //public var userNames = emptyArray<String>()
 
     public var userNames = mutableListOf<String>()
+    var currentUserName=""
+
+
+
     fun firstTime() {
         val sharedTime = getSharedPreferences("preferences_name2", 0)
         if (sharedTime.getBoolean("firstTime", true)) { //Your tutorial code
@@ -190,27 +194,35 @@ class UserSettings : AppCompatActivity() {
             //TODO: Import user files like list of users
 
 
-        } else { //When not using tutorial code
-            //Toast.makeText(this, "Sie waren schon in der Activity NewUser", Toast.LENGTH_LONG).show()
-            val intentFromNewUserActivity: Intent = getIntent();
-            var newUserName = intentFromNewUserActivity.getStringExtra("newUserName")
-            if (newUserName == null) {
-                newUserName = "defaultUser"
-            }
-            // In der Activity "NewUser" heißt es: sharedUserData.edit().putString(newUserName,userSkill).apply()
-            val sharedUserData = getSharedPreferences(newUserName, 0)
-            val newUserSkill = NewUser().getNewUserSkill()//sharedUserData.getString(newUserName,userSkill)
-            setDeactivatedElementsToSkill(newUserSkill,elementArray)
-            Toast.makeText(this, "Elemente deaktiviert für Skill: $newUserSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+        }
+        else { //When not using tutorial code
+        //Toast.makeText(this, "Sie waren schon in der Activity NewUser", Toast.LENGTH_LONG).show()
+        val intentFromNewUserActivity: Intent = getIntent();
+        var newUserName = intentFromNewUserActivity.getStringExtra("newUserName")
+        if (newUserName == null) {
+            newUserName = "defaultUser"
+        }
+        // In der Activity "NewUser" heißt es: sharedUserData.edit().putString(newUserName,userSkill).apply()
+        val sharedUserData = getSharedPreferences(newUserName, 0)
 
-            userNames.add(newUserName)
+
+        //Toast.makeText(this, "Elemente deaktiviert für Skill: $newUserSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+        userNames.add(currentUserName) //userNames.add(newUserName)
         }
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_user_settings)
+        //setSupportActionBar(toolbar)
+
         firstTime()
+        val context: Context = applicationContext
+        val newUserSkill = readFromFile(context,"lastSessionUserSkill")//sharedUserData.getString(newUserName,userSkill)
+        currentUserName = readFromFile(context,"lastSessionUserName")//sharedUserData.getString(newUserName,userSkill)
+        setDeactivatedElementsToSkill(newUserSkill,elementArray)
 
         val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
@@ -222,9 +234,7 @@ class UserSettings : AppCompatActivity() {
         }
 
 
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_settings)
-        //setSupportActionBar(toolbar)
+
         switchUser.setOnClickListener { view ->
             //Snackbar.make(view, "In Zukunft lässt sich hier der Username ändern", Snackbar.LENGTH_LONG)
             //.setAction("Action", null).show()
@@ -290,20 +300,21 @@ class UserSettings : AppCompatActivity() {
         list.add(Model("Bauch", "Bauch > Bauch", R.drawable.button_activated))
         list.add(Model("halbe Heli", "Bauch > halbe Heli (= halbe Bauch)", R.drawable.button_activated))
 
-        //get the spinner from the xml
-        val usersDropdown: Spinner = findViewById(R.id.PickUserDropdown)
+
 
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        //get the spinner from the xml
+        val usersDropdown: Spinner = findViewById(R.id.PickUserDropdown)
         val dropdownAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userNames)
         usersDropdown.setAdapter(dropdownAdapter)
 
 
         // loading the array from file
-        val context: Context = applicationContext
+        //val context: Context = applicationContext
         //val currentUsername = usersDropdown.getSelectedItem()
-        val currentUsername = readFromFile(context,"lastSessionUser")
-        println("9999999999 currentUsername: $currentUsername")
-        val filenameRead = currentUsername.toString() + "_deactivatedElementsFile"
+        currentUserName = readFromFile(context,"lastSessionUserName")
+        println("9999999999 currentUserName: $currentUserName")
+        val filenameRead = currentUserName + "_deactivatedElementsFile"
         val loadedStringOfDeactivatedElements = readFromFile(context, filenameRead)
         val loadedStringArray = loadedStringOfDeactivatedElements.split(",").toTypedArray()
         println("**********************LOADED STRING ARRAY $loadedStringArray")
@@ -390,16 +401,19 @@ class UserSettings : AppCompatActivity() {
             //Saving all user-related files and going back to MainScreen
             back_and_save_savedExercises.setOnClickListener {
                 val deactivatedElementsArrayString = elementArray.contentToString()
-                val currentUser = usersDropdown.getSelectedItem().toString()
-                val deactivatedElementsFilename = currentUser + "_deactivatedElementsFile"
+                val currentUserName = usersDropdown.getSelectedItem().toString()
+                val deactivatedElementsFilename = currentUserName + "_deactivatedElementsFile"
                 println("DeactivatedElementsFilename ist $deactivatedElementsFilename")
 
                 val sharedUserData = getSharedPreferences("currentUser", 0)
-                sharedUserData.edit().putString("currentUser", currentUser).apply()
+                sharedUserData.edit().putString("currentUser", currentUserName).apply()
                 writeToFile(context, deactivatedElementsArrayString, deactivatedElementsFilename)
                 println("1111111111 Wrote following Array to file: $deactivatedElementsArrayString")
+
+                writeToFile(context,currentUserName,"lastSessionUserName")
+
                 val intent = Intent(this, MainScreen::class.java)
-                intent.putExtra("currentUser", currentUser)
+                intent.putExtra("currentUser", currentUserName)
                 startActivity(intent)
             }
 
