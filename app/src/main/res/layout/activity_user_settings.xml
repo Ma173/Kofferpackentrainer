@@ -8,7 +8,7 @@
     tools:context=".UserSettings">
 
     <Button
-        android:id="@+id/back_and_save_savedExercises"
+        android:id="@+id/back_and_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="speichern und zurück" />

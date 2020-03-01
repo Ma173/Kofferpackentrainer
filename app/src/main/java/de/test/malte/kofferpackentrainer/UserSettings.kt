@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.View.MeasureSpec
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import java.io.*
 
@@ -183,7 +184,7 @@ class UserSettings : AppCompatActivity() {
     //public var userNames = emptyArray<String>()
 
     public var userNames = mutableListOf<String>()
-    var currentUserName=""
+    public var currentUserName=""
 
 
 
@@ -207,7 +208,7 @@ class UserSettings : AppCompatActivity() {
 
 
         //Toast.makeText(this, "Elemente deaktiviert für Skill: $newUserSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
-        userNames.add(currentUserName) //userNames.add(newUserName)
+
         }
     }
 
@@ -219,10 +220,34 @@ class UserSettings : AppCompatActivity() {
         //setSupportActionBar(toolbar)
 
         firstTime()
+
         val context: Context = applicationContext
-        val newUserSkill = readFromFile(context,"lastSessionUserSkill")//sharedUserData.getString(newUserName,userSkill)
         currentUserName = readFromFile(context,"lastSessionUserName")//sharedUserData.getString(newUserName,userSkill)
-        setDeactivatedElementsToSkill(newUserSkill,elementArray)
+        userNames.add(currentUserName) //userNames.add(newUserName)
+
+
+
+        /*
+        val dateTimeUserSkillSaved = readFromFile(context,"dateTimeUserSkillSaved")
+        val dateUserSkillSaved = dateTimeUserSkillSaved.split("|")[0]
+        val timeUserSkillSaved = dateTimeUserSkillSaved.split("|")[1]
+        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+        if (dateUserSkillSaved==currentDate)
+            if (currentTime[-5].toString()+currentTime[-4]==timeUserSkillSaved[-5].toString()+timeUserSkillSaved[-4]){
+
+            }
+            */
+        val freshlySavedUserSkill = readFromFile(context,"freshlySavedUserSkill")
+        if (freshlySavedUserSkill=="true"){
+            UserSettings().writeToFile(context,"false","userSkillFreshlySaved")
+            val newUserSkill = readFromFile(context,"lastSessionUserSkill") //sharedUserData.getString(newUserName,userSkill)
+            setDeactivatedElementsToSkill(newUserSkill,elementArray)
+            println("ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ - newUserSkill $newUserSkill")
+        }
+
+
+
 
         val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
@@ -309,10 +334,11 @@ class UserSettings : AppCompatActivity() {
         usersDropdown.setAdapter(dropdownAdapter)
 
 
+
+
         // loading the array from file
         //val context: Context = applicationContext
         //val currentUsername = usersDropdown.getSelectedItem()
-        currentUserName = readFromFile(context,"lastSessionUserName")
         println("9999999999 currentUserName: $currentUserName")
         val filenameRead = currentUserName + "_deactivatedElementsFile"
         val loadedStringOfDeactivatedElements = readFromFile(context, filenameRead)
@@ -327,67 +353,67 @@ class UserSettings : AppCompatActivity() {
         }
 
 
-            // If no user is in the usersDropdown -> send user to activity NewUser
-            //usersDropdown.getAdapter().getCount()==0)
-            if (userNames.size == 0) {
-                val intent = Intent(this, NewUser::class.java)
-                startActivity(intent)
-            }
-            // deactivating all elements that are saved as deactivated in the elementArray (list elements are initialized as activated above)
-            // by setting the new Model - same title & description but different drawable
-            for (element in elementArray.indices) {
-                var activationOfElement: Int = elementArray[element]//elementArray[element%2]
-                var currentListItem = list.get(element)
-                if (activationOfElement == 0) {
-                    list.set(element, Model(currentListItem.title, currentListItem.description, R.drawable.button_dectivated))
-                }
-
+        // If no user is in the usersDropdown -> send user to activity NewUser
+        //usersDropdown.getAdapter().getCount()==0)
+        if (userNames.size == 0) {
+            val intent = Intent(this, NewUser::class.java)
+            startActivity(intent)
+        }
+        // deactivating all elements that are saved as deactivated in the elementArray (list elements are initialized as activated above)
+        // by setting the new Model - same title & description but different drawable
+        for (element in elementArray.indices) {
+            var activationOfElement: Int = elementArray[element]//elementArray[element%2]
+            var currentListItem = list.get(element)
+            if (activationOfElement == 0) {
+                list.set(element, Model(currentListItem.title, currentListItem.description, R.drawable.button_dectivated))
             }
 
-
-
-            listview.adapter = MyAdapter(this, R.layout.row, list)
-
+        }
 
 
 
-            listview.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
+        listview.adapter = MyAdapter(this, R.layout.row, list)
 
-                var img: ImageView = view.findViewById(R.id.image0)
-                //var textView: TextView = listview.getItemAtPosition(position)
 
-                /*when (position){
 
-                0 -> img = findViewById(R.id.image)
-                1 -> img = findViewById(R.id.image0)
-                2 -> img = findViewById(R.id.image2)
-                3 -> img = findViewById(R.id.image3)
-                4 -> img = findViewById(R.id.image4)
-                5 -> img = findViewById(R.id.image5)
-                6 -> img = findViewById(R.id.image6)
-                7 -> img = findViewById(R.id.image7)
-                8 -> img = findViewById(R.id.image8)
-                9 -> img = findViewById(R.id.image9)
-            }*/
 
-                // When the button's state in the array  is 'deactivated' -> set state in arrray to 'activated' and change the drawable
-                if (elementArray[position] == 0) {
-                    img.setImageResource(R.drawable.button_activated)
-                    //val drawable= ContextCompat.getDrawable(context,button_activated)
-                    //textView.setCompoundDrawables(@button_activated,null)
-                    elementArray[position] = 1
-                    val textView: TextView = view.findViewById(R.id.textView1) as TextView
-                    var tappedElementName: String = textView.text.toString()
-                    Toast.makeText(this@UserSettings, "$tappedElementName aktiviert", Toast.LENGTH_LONG).show()
-                } else if (elementArray[position] == 1) {
-                    println("-------------------------- elementId ist in gesperrte oder das letzte Element ist nicht Stand. Hole neues Element")
-                    img.setImageResource(R.drawable.button_dectivated)
-                    elementArray[position] = 0
-                    val textView: TextView = view.findViewById(R.id.textView1) as TextView
-                    var tappedElementName: String = textView.text.toString()
-                    Toast.makeText(this@UserSettings, "$tappedElementName deaktiviert", Toast.LENGTH_LONG).show()
-                    println(elementArray)
-                }
+        listview.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
+
+            var img: ImageView = view.findViewById(R.id.image0)
+            //var textView: TextView = listview.getItemAtPosition(position)
+
+            /*when (position){
+
+            0 -> img = findViewById(R.id.image)
+            1 -> img = findViewById(R.id.image0)
+            2 -> img = findViewById(R.id.image2)
+            3 -> img = findViewById(R.id.image3)
+            4 -> img = findViewById(R.id.image4)
+            5 -> img = findViewById(R.id.image5)
+            6 -> img = findViewById(R.id.image6)
+            7 -> img = findViewById(R.id.image7)
+            8 -> img = findViewById(R.id.image8)
+            9 -> img = findViewById(R.id.image9)
+        }*/
+
+            // When the button's state in the array  is 'deactivated' -> set state in arrray to 'activated' and change the drawable
+            if (elementArray[position] == 0) {
+                img.setImageResource(R.drawable.button_activated)
+                //val drawable= ContextCompat.getDrawable(context,button_activated)
+                //textView.setCompoundDrawables(@button_activated,null)
+                elementArray[position] = 1
+                val textView: TextView = view.findViewById(R.id.textView1) as TextView
+                var tappedElementName: String = textView.text.toString()
+                Toast.makeText(this@UserSettings, "$tappedElementName aktiviert", Toast.LENGTH_LONG).show()
+            } else if (elementArray[position] == 1) {
+                println("-------------------------- elementId ist in gesperrte oder das letzte Element ist nicht Stand. Hole neues Element")
+                img.setImageResource(R.drawable.button_dectivated)
+                elementArray[position] = 0
+                val textView: TextView = view.findViewById(R.id.textView1) as TextView
+                var tappedElementName: String = textView.text.toString()
+                Toast.makeText(this@UserSettings, "$tappedElementName deaktiviert", Toast.LENGTH_LONG).show()
+                println(elementArray)
+            }
             }
 
 
@@ -398,8 +424,11 @@ class UserSettings : AppCompatActivity() {
             //val position: SparseBooleanArray = listView.checkedItemPositions
 
 
+
+
+
             //Saving all user-related files and going back to MainScreen
-            back_and_save_savedExercises.setOnClickListener {
+            back_and_save.setOnClickListener {
                 val deactivatedElementsArrayString = elementArray.contentToString()
                 val currentUserName = usersDropdown.getSelectedItem().toString()
                 val deactivatedElementsFilename = currentUserName + "_deactivatedElementsFile"
@@ -410,6 +439,7 @@ class UserSettings : AppCompatActivity() {
                 writeToFile(context, deactivatedElementsArrayString, deactivatedElementsFilename)
                 println("1111111111 Wrote following Array to file: $deactivatedElementsArrayString")
 
+                println("______________________________________WRITING CURRENT USERNAME TO FILE: $currentUserName")
                 writeToFile(context,currentUserName,"lastSessionUserName")
 
                 val intent = Intent(this, MainScreen::class.java)
@@ -417,6 +447,9 @@ class UserSettings : AppCompatActivity() {
                 startActivity(intent)
             }
 
+        fun changeCurrentUserName(name: String){
+            currentUserName=name
+        }
 
         }
 

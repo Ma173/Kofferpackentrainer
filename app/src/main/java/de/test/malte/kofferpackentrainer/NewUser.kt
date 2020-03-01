@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_user.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class NewUser : AppCompatActivity() {
@@ -61,8 +63,13 @@ class NewUser : AppCompatActivity() {
             //Toast.makeText(this, "Speichere für User $newUserName den Skill $userSkill", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
 
             val context: Context = applicationContext
+            val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+            val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+            val currentDateAndTime = "$currentDate|$currentTime"
             UserSettings().writeToFile(context,newUserName,"lastSessionUserName")
             UserSettings().writeToFile(context,userSkill,"lastSessionUserSkill")
+            UserSettings().writeToFile(context,currentDateAndTime,"dateTimeUserSkillSaved")
+            UserSettings().writeToFile(context,"true","userSkillFreshlySaved")
 
             val intent = Intent(this, UserSettings::class.java)
             startActivity(intent)

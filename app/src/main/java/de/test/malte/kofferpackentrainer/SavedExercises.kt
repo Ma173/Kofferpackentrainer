@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.TypedValue
 import kotlinx.android.synthetic.main.activity_saved_exercises.*
 import kotlinx.android.synthetic.main.activity_saved_exercises.toolbar
-import kotlinx.android.synthetic.main.app_bar_main_screen.*
 import kotlinx.android.synthetic.main.content_saved_exercises.*
 
 class SavedExercises : AppCompatActivity() {
@@ -38,7 +36,7 @@ class SavedExercises : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        back_and_save_savedExercises.setOnClickListener {
+        back_and_save.setOnClickListener {
             val intent = Intent(this, MainScreen::class.java)
             startActivity(intent)
         }

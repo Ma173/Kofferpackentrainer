@@ -163,7 +163,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         if (lastSessionUserName==""){
             lastSessionUserName="defaultUser"
         }
-
+        println("_______________________________________Loaded current user: $lastSessionUserName")
         return lastSessionUserName
     }
 
@@ -180,7 +180,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             var s = savedInstanceState.getString("text")
         }
 
-        currentUser=getLastSessionUserName()
+        currentUser=getLastSessionUserName().replace("\\s".toRegex(),"")
+        println("_____________current User is: $currentUser")
         subtitle.text = currentUser
 
         /*val extras = intent.extras
