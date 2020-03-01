@@ -211,7 +211,62 @@ class UserSettings : AppCompatActivity() {
 
         }
     }
+    var list = mutableListOf<Model>()
 
+    fun setElementsListObjects(){
+        list.add(Model("Sprünge aus dem Stand", "", R.drawable.image_noimage))
+        list.add(Model("Hocke", "Stand > Hocke > Stand", R.drawable.button_activated))
+        list.add(Model("Bücke", "Stand > Bücke > Stand", R.drawable.button_activated))
+        list.add(Model("Grätsche", "Stand > Grätsche > Stand", R.drawable.button_activated))
+        list.add(Model("Halbe Schraube", "Stand > halbe Schraube > Stand", R.drawable.button_activated))
+        list.add(Model("Halbe Hocke", "Stand > halbe Hocke > Stand", R.drawable.button_activated))
+        list.add(Model("Halbe Bücke", "Stand > halbe Bücke > Stand", R.drawable.button_activated))
+        list.add(Model("Halbe Grätsche", "Stand > halbe Grätsche > Stand", R.drawable.button_activated))
+        list.add(Model("Ganze Schraube", "Stand > ganze Schraube > Stand", R.drawable.button_activated))
+        list.add(Model("Sitz", "Stand > Sitz", R.drawable.button_activated))
+        list.add(Model("Halbe Sitz", "Stand > halbe Sitz", R.drawable.button_activated))
+        list.add(Model("Ganze Sitz", "Stand > ganze Sitz", R.drawable.button_activated))
+        list.add(Model("Hocke in den Sitz", "Stand > Hocke in den Sitz", R.drawable.button_activated))
+        list.add(Model("Grätsche in den Sitz", "Stand > Grätsche in den Sitz", R.drawable.button_activated))
+        list.add(Model("Rücken", "Stand > Rücken", R.drawable.button_activated))
+        list.add(Model("Halbe Rücken", "Stand > halbe Rücken", R.drawable.button_activated))
+        list.add(Model("Bauch", "Stand > Bauch", R.drawable.button_activated))
+        list.add(Model("Halbe Bauch", "Stand > Bauch", R.drawable.button_activated))
+
+        list.add(Model("Sprünge aus dem Sitz", "", R.drawable.image_noimage))
+        list.add(Model("Stand", "Sitz > Stand", R.drawable.button_activated))
+        list.add(Model("Halbe Stand", "Sitz > halbe Stand", R.drawable.button_activated))
+        list.add(Model("Ganze Stand", "Sitz > ganze Stand", R.drawable.button_activated))
+        list.add(Model("Sitz", "Sitz > Sitz", R.drawable.button_activated))
+        list.add(Model("Halbe Sitz", "Sitz > halbe Sitz", R.drawable.button_activated))
+        list.add(Model("Ganze Sitz", "Sitz > ganze Sitz", R.drawable.button_activated))
+        list.add(Model("Rücken", "Sitz > Rücken", R.drawable.button_activated))
+        list.add(Model("Halbe Rücken", "Sitz > halbe Rücken", R.drawable.button_activated))
+        list.add(Model("Bauch", "Sitz > Bauch", R.drawable.button_activated))
+
+        list.add(Model("Sprünge aus dem Rücken", "", R.drawable.image_noimage))
+        list.add(Model("Stand", "Rücken > Stand", R.drawable.button_activated))
+        list.add(Model("halbe Stand", "Rücken > halbe Stand", R.drawable.button_activated))
+        list.add(Model("ganze Stand", "Rücken > ganze Stand", R.drawable.button_activated))
+        list.add(Model("halbe Sitz", "Rücken > halbe Sitz", R.drawable.button_activated))
+        list.add(Model("Rücken", "Rücken > Rücken (= Käfer)", R.drawable.button_activated))
+        list.add(Model("Muffel", "Rücken > Muffel in den Stand", R.drawable.button_activated))
+        list.add(Model("Muffel in den Sitz", "Rücken > Muffel in den Sitz", R.drawable.button_activated))
+        list.add(Model("Muffel in den Bauch", "Rücken > Muffel in den Bauch", R.drawable.button_activated))
+        list.add(Model("Muffel in den Rücken", "Rücken > Muffel in den Rücken", R.drawable.button_activated))
+        list.add(Model("Salto vw. in den Rücken", "Rücken > Salto vw. i.d. Rücken", R.drawable.button_activated))
+        list.add(Model("Salto vw. in den Stand", "Rücken > Salto vw. i.d. Stand", R.drawable.button_activated))
+        list.add(Model("Bauch", "Rücken > Bauch", R.drawable.button_activated))
+        list.add(Model("Wende in den Bauch", "Rücken > Wende in den Bauch", R.drawable.button_activated))
+
+        list.add(Model("Sprünge aus dem Bauch", "", R.drawable.image_noimage))
+        list.add(Model("Stand", "Bauch > Stand", R.drawable.button_activated))
+        list.add(Model("halbe Stand", "Bauch > halbe Stand", R.drawable.button_activated))
+        list.add(Model("Rücken", "Bauch > Rücken", R.drawable.button_activated))
+        list.add(Model("Wende in den Rücken", "Bauch > Wende in den Rücken", R.drawable.button_activated))
+        list.add(Model("Bauch", "Bauch > Bauch", R.drawable.button_activated))
+        list.add(Model("halbe Heli", "Bauch > halbe Heli (= halbe Bauch)", R.drawable.button_activated))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -267,63 +322,11 @@ class UserSettings : AppCompatActivity() {
             startActivity(jumpToNewUserIntent)
         }
 
-        // Initializing the array lists and the adapter
+        // Initializing the array lists and the adapter for the listview of deactivated elements
         //setContentView(R.layout.content_user_settings)
-
         var listview = findViewById<ListView>(R.id.listView)
-        var list = mutableListOf<Model>()
-        list.add(Model("Sprünge aus dem Stand", "", R.drawable.image_noimage))
-        list.add(Model("Hocke", "Stand > Hocke > Stand", R.drawable.button_activated))
-        list.add(Model("Bücke", "Stand > Bücke > Stand", R.drawable.button_activated))
-        list.add(Model("Grätsche", "Stand > Grätsche > Stand", R.drawable.button_activated))
-        list.add(Model("Halbe Schraube", "Stand > halbe Schraube > Stand", R.drawable.button_activated))
-        list.add(Model("Halbe Hocke", "Stand > halbe Hocke > Stand", R.drawable.button_activated))
-        list.add(Model("Halbe Bücke", "Stand > halbe Bücke > Stand", R.drawable.button_activated))
-        list.add(Model("Halbe Grätsche", "Stand > halbe Grätsche > Stand", R.drawable.button_activated))
-        list.add(Model("Ganze Schraube", "Stand > ganze Schraube > Stand", R.drawable.button_activated))
-        list.add(Model("Sitz", "Stand > Sitz", R.drawable.button_activated))
-        list.add(Model("Halbe Sitz", "Stand > halbe Sitz", R.drawable.button_activated))
-        list.add(Model("Ganze Sitz", "Stand > ganze Sitz", R.drawable.button_activated))
-        list.add(Model("Hocke in den Sitz", "Stand > Hocke in den Sitz", R.drawable.button_activated))
-        list.add(Model("Grätsche in den Sitz", "Stand > Grätsche in den Sitz", R.drawable.button_activated))
-        list.add(Model("Rücken", "Stand > Rücken", R.drawable.button_activated))
-        list.add(Model("Halbe Rücken", "Stand > halbe Rücken", R.drawable.button_activated))
-        list.add(Model("Bauch", "Stand > Bauch", R.drawable.button_activated))
-        list.add(Model("Halbe Bauch", "Stand > Bauch", R.drawable.button_activated))
+        setElementsListObjects()
 
-        list.add(Model("Sprünge aus dem Sitz", "", R.drawable.image_noimage))
-        list.add(Model("Stand", "Sitz > Stand", R.drawable.button_activated))
-        list.add(Model("Halbe Stand", "Sitz > halbe Stand", R.drawable.button_activated))
-        list.add(Model("Ganze Stand", "Sitz > ganze Stand", R.drawable.button_activated))
-        list.add(Model("Sitz", "Sitz > Sitz", R.drawable.button_activated))
-        list.add(Model("Halbe Sitz", "Sitz > halbe Sitz", R.drawable.button_activated))
-        list.add(Model("Ganze Sitz", "Sitz > ganze Sitz", R.drawable.button_activated))
-        list.add(Model("Rücken", "Sitz > Rücken", R.drawable.button_activated))
-        list.add(Model("Halbe Rücken", "Sitz > halbe Rücken", R.drawable.button_activated))
-        list.add(Model("Bauch", "Sitz > Bauch", R.drawable.button_activated))
-
-        list.add(Model("Sprünge aus dem Rücken", "", R.drawable.image_noimage))
-        list.add(Model("Stand", "Rücken > Stand", R.drawable.button_activated))
-        list.add(Model("halbe Stand", "Rücken > halbe Stand", R.drawable.button_activated))
-        list.add(Model("ganze Stand", "Rücken > ganze Stand", R.drawable.button_activated))
-        list.add(Model("halbe Sitz", "Rücken > halbe Sitz", R.drawable.button_activated))
-        list.add(Model("Rücken", "Rücken > Rücken (= Käfer)", R.drawable.button_activated))
-        list.add(Model("Muffel", "Rücken > Muffel in den Stand", R.drawable.button_activated))
-        list.add(Model("Muffel in den Sitz", "Rücken > Muffel in den Sitz", R.drawable.button_activated))
-        list.add(Model("Muffel in den Bauch", "Rücken > Muffel in den Bauch", R.drawable.button_activated))
-        list.add(Model("Muffel in den Rücken", "Rücken > Muffel in den Rücken", R.drawable.button_activated))
-        list.add(Model("Salto vw. in den Rücken", "Rücken > Salto vw. i.d. Rücken", R.drawable.button_activated))
-        list.add(Model("Salto vw. in den Stand", "Rücken > Salto vw. i.d. Stand", R.drawable.button_activated))
-        list.add(Model("Bauch", "Rücken > Bauch", R.drawable.button_activated))
-        list.add(Model("Wende in den Bauch", "Rücken > Wende in den Bauch", R.drawable.button_activated))
-
-        list.add(Model("Sprünge aus dem Bauch", "", R.drawable.image_noimage))
-        list.add(Model("Stand", "Bauch > Stand", R.drawable.button_activated))
-        list.add(Model("halbe Stand", "Bauch > halbe Stand", R.drawable.button_activated))
-        list.add(Model("Rücken", "Bauch > Rücken", R.drawable.button_activated))
-        list.add(Model("Wende in den Rücken", "Bauch > Wende in den Rücken", R.drawable.button_activated))
-        list.add(Model("Bauch", "Bauch > Bauch", R.drawable.button_activated))
-        list.add(Model("halbe Heli", "Bauch > halbe Heli (= halbe Bauch)", R.drawable.button_activated))
 
 
 

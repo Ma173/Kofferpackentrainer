@@ -193,17 +193,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             currentUser = "defaultUser"
             subtitle.setText(currentUser)
         }*/
-
-        //exercise.setEnabled(false)
         exercise.setFocusable(false)
-
-        /*
-        btn_new_exercise.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-        */
-
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -339,15 +329,16 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         val sw = findViewById(R.id.continuousExerciseSwitch) as Switch
         sw.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) { // The toggle is enabled
-                continuousMode=true
-            } else { // The toggle is disabled
-                continuousMode = false
+            when (isChecked) {
+                true -> continuousMode=true // The toggle is enabled
+                false -> continuousMode = false // The toggle is disabled
             }
+
+
         }
 
 
-        if (continuousMode==false){
+        if (!continuousMode){
             newExercise.clear()
         }
         exercise.visibility = View.VISIBLE
