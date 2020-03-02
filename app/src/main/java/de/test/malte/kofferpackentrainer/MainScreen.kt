@@ -254,14 +254,32 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                     .setAction("Action", null).show()
             buttonEffect(btn_save_exercise)
 
+            val context = applicationContext
+
             val intent = Intent(this, SavedExercises::class.java)
-            var currentExercise=""
+
+            // Zwei Wege, die Übung an SavedExercises zu übergeben: 1. Mit "currentExerciseElementNames" als einzelne Übung als String, in dem mit Zeilenumbruch alle Elemente als Klarnamen stehen
+            // 2. als String, in dem jede Übung eine Zeile ist und jedes Element als Array getrennt von "|" steht
+            // wobei ich 2 gar nicht brauche, da beim Laden ja auch die fertige Übung als String reicht
+            var currentExerciseElementNames=""
+            var currentExerciseElementsInLine= ""
+            val loadedSavedExercisesAsString=UserSettings().readFromFile(context,"savedExercises")
+            var allSavedExercises=loadedSavedExercisesAsString
+
             for (element in newExercise){
                 val firstPart=element.first
-                currentExercise+="$firstPart\n"
+                val secondPart=element.second
+                currentExerciseElementNames+="$firstPart\n"
+                currentExerciseElementsInLine=currentExerciseElementsInLine+element+" | "
+
+
             }
-            newExercise.toString()
-            intent.putExtra("currentExercise", currentExercise)
+            allSavedExercises+= "__________\n"+currentExerciseElementNames//currentExerciseElementsInLine
+            //UserSettings().writeToFile(context,exercisesToSaveAsString,"savedExercises")
+            //newExercise.toString()
+
+            UserSettings().writeToFile(context,allSavedExercises,"savedExercises")
+            intent.putExtra("currentExerciseElementNames", currentExerciseElementNames)
             startActivity(intent)
 
 
@@ -359,6 +377,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         val laenge = deactivatedElementsArray.size
         //println("Der zweite Eintrag von deactivatedElementsArray ist $erster mit dem Typ $typErster. Länge des Arrays/ der Liste ist: $laenge\n\n")
         var currentCount=0
+
         for (element in deactivatedElementsArray){//for ((index,value) in deactivatedElementsArray.withIndex()){
 
             val index = currentCount

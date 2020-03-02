@@ -7,25 +7,38 @@
     android:fitsSystemWindows="true"
     tools:context=".SavedExercises">
 
-    <Button
-        android:id="@+id/back_and_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="speichern und zurück" />
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="80dp"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/back_and_save_saved_exercises"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="fill_vertical|end"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:text="speichern und zurück"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_saved_exercises" />
+    <include
+        layout="@layout/content_saved_exercises"
+        android:visibility="gone" />
+
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/sendExercise"
+        android:id="@+id/btn_sendExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
@@ -34,13 +47,32 @@
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_deleteExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="250dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
-        app:layout_anchor="@+id/app_bar"
+        app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="center"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
         app:toolbarId="@+id/toolbar">

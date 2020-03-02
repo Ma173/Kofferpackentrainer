@@ -30,3 +30,24 @@ class MyAdapter (var mCtx:Context, var resources:Int, var items:List<Model>):Arr
     }
 
 }
+
+class MyAdapter2 (var mCtx:Context, var resources:Int, var items:List<Model2>):ArrayAdapter<Model2>(mCtx, resources, items){
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val layoutInflater:LayoutInflater = LayoutInflater.from(mCtx)
+        val view:View = layoutInflater.inflate(resources,null)
+
+        val imageView:ImageView = view.findViewById(R.id.image0)
+        val titleTextView:TextView = view.findViewById(R.id.textView1)
+
+        var mItem:Model2 = items[position]
+        val imageVal=mItem.img
+        if (imageVal!=null){
+            imageView.setImageDrawable(mCtx.resources.getDrawable(imageVal))
+        }
+
+        titleTextView.text = mItem.title
+
+        return view
+    }
+
+}
