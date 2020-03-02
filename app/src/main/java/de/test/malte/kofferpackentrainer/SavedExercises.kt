@@ -79,10 +79,34 @@ class SavedExercises : AppCompatActivity() {
 
         }
 
+
+        // Sharing the exercise
         btn_sendExercise.setOnClickListener { view ->
+
+            var exercisesToSend=""
+            for (index in selectedListElements.indices){
+                val elementActivation=selectedListElements[index]
+                val exercise = savedExercisesList[index]
+                if (elementActivation==1){
+                    exercisesToSend+= "\n__________\n$exercise"
+                }
+            }
+
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, exercisesToSend)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+
+
             Snackbar.make(view, "In Zukunft wird über diesen Button die Übung versendbar sein", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+
 
         btn_deleteExercise.setOnClickListener { view ->
             for (index in selectedListElements.indices){
