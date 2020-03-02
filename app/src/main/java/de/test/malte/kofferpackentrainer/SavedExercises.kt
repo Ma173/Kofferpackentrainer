@@ -22,8 +22,10 @@ class SavedExercises : AppCompatActivity() {
 
         val extras = intent.extras
         var currentExercise: String? =""
+        var cameToSave = ""
         if (extras != null) {
             currentExercise = extras.getString("currentExerciseElementNames")
+            cameToSave = extras.getString("cameToSave")
         }
         val context=applicationContext
         //savedExercises im Stil Element1,Übung1\nElement2\nElement3\n__________\nElement1, Übung2...
@@ -133,7 +135,13 @@ class SavedExercises : AppCompatActivity() {
                 exercisesStringToSave+= "__________\n"+exercise
             }
             UserSettings().writeToFile(context,exercisesStringToSave,"savedExercises")
+
+
+
+
             val intent = Intent(this, MainScreen::class.java)
+            intent.putExtra("cameToSave", cameToSave)
+            println("___________ Sende cameToSave mit Wert: $cameToSave")
             startActivity(intent)
         }
 

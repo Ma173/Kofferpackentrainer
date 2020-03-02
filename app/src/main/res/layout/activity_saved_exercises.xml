@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="fill_vertical|end"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="bottom"
                 android:text="speichern und zurück"
                 android:visibility="visible" />
 

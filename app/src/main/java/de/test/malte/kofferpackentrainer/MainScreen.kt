@@ -195,6 +195,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     }
 
     var continuousMode = false
+    var cameToSave: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //val context: Context = applicationContext
@@ -205,8 +206,21 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         if (savedInstanceState != null){
             var x = savedInstanceState.getBoolean("visibility")
             var s = savedInstanceState.getString("text")
-
+            }
+        val extras = intent.extras
+        if (extras != null) {
+            println("_______________________ EXTRAS IST NICHT NULL")
+            cameToSave = extras.getString("cameToSave")
+            if (cameToSave=="true"){
+                println("____________ cameToSave-Wert ist tatsächlich true")
+                btn_save_exercise.setImageResource(android.R.drawable.btn_star_big_on)
+            }
+            else{
+                println("___________ cameToSave ist: $cameToSave")
+            }
         }
+
+
         firstTime()
 
 
@@ -251,6 +265,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         btn_new_exercise.setOnClickListener {
 
             buttonEffect(btn_new_exercise)
+            btn_save_exercise.setImageResource(android.R.drawable.btn_star_big_off)
 
             greeting.visibility = View.INVISIBLE
             //list_elemente_der_uebung.visibility = View.VISIBLE
@@ -285,8 +300,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         btn_save_exercise.setOnClickListener {view ->
             //Snackbar.make(view, "Zurzeit kein Speichern möglich", Snackbar.LENGTH_LONG)
             //        .setAction("Action", null).show()
-            buttonEffect(btn_save_exercise)
-
+            //buttonEffect(btn_save_exercise)
+            btn_save_exercise.setImageResource(android.R.drawable.btn_star_big_on)//@android:drawable.big_star_big_off
             val context = applicationContext
 
             val intent = Intent(this, SavedExercises::class.java)
@@ -313,6 +328,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             UserSettings().writeToFile(context,allSavedExercises,"savedExercises")
             intent.putExtra("currentExerciseElementNames", currentExerciseElementNames)
+            intent.putExtra("cameToSave", "true")
             startActivity(intent)
 
 
@@ -540,12 +556,13 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_camera -> {
-                // Handle the camera action
+                // Übung importieren
             }
             R.id.nav_gallery -> {
 
             }
             R.id.nav_slideshow -> {
+                // Navigation zu den gespeicherten Übungen
                 val intent = Intent(this,SavedExercises::class.java)
                 startActivity(intent)
             }
