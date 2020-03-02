@@ -2,6 +2,8 @@ package de.test.malte.kofferpackentrainer
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -105,8 +107,15 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     }
     private val TAG = "None"
 
+    //var greetingVisible=0//greeting.visibility // kann 0 4 oder 8 sein, also visible, invisible und gone
+    //var greetingVisibility: SharedPreferences? = getSharedPreferences("greetingVisibility", Context.MODE_PRIVATE)
+
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
+        //val prefsEditor: Editor = greetingVisibility.edit()
+        //prefsEditor.putInt("visibility", mEditText.getVisibility())
+        println("_______ onSaveInstanceState wurde getriggered")
+
         Log.i(TAG, "onSaveInstanceState")
     }
 
@@ -116,7 +125,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         val userText = savedInstanceState?.getCharSequence("savedText")
         //editText.setText(userText)
-        greeting.visibility = View.INVISIBLE
+        println("_______ onRestoreInstanceState wurde getriggered")
+
     }
     fun getContext():Context{
         val context: Context = applicationContext
@@ -167,6 +177,23 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         return lastSessionUserName
     }
 
+    fun firstTime() {
+        val sharedTime = getSharedPreferences("preferences_name2", 0)
+        if (sharedTime.getBoolean("firstTimeMainScreen", true)) { //Your tutorial code
+            sharedTime.edit().putBoolean("firstTimeMainScreen", false).apply()
+        }
+        else { //When not using tutorial code
+            //Toast.makeText(this, "Sie waren schon in der Activity NewUser", Toast.LENGTH_LONG).show()
+            val context = applicationContext
+            greeting.visibility=View.GONE
+            val lastExercise=UserSettings().readFromFile(context,"lastExercise")
+            println("_________setting exercise to:$lastExercise")
+            exercise.setText(lastExercise)
+            exercise.visibility=View.VISIBLE
+
+        }
+    }
+
     var continuousMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,7 +205,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         if (savedInstanceState != null){
             var x = savedInstanceState.getBoolean("visibility")
             var s = savedInstanceState.getString("text")
+
         }
+        firstTime()
+
 
         currentUser=getLastSessionUserName().replace("\\s".toRegex(),"")
         println("_____________current User is: $currentUser")
@@ -239,6 +269,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 exerciseString=exerciseString+"\n"+element.first
             }
             exercise.setText(exerciseString)
+            val context =applicationContext
+            UserSettings().writeToFile(context,exerciseString,"lastExercise")
+
             val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, listItems)
             //listView.adapter = MyCustomAdapter(this)
 
@@ -250,8 +283,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         // Saving the displayed exercise
         btn_save_exercise.setOnClickListener {view ->
-            Snackbar.make(view, "Zurzeit kein Speichern möglich", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            //Snackbar.make(view, "Zurzeit kein Speichern möglich", Snackbar.LENGTH_LONG)
+            //        .setAction("Action", null).show()
             buttonEffect(btn_save_exercise)
 
             val context = applicationContext
