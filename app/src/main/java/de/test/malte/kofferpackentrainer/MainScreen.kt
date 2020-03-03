@@ -328,19 +328,24 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             // 2. als String, in dem jede Übung eine Zeile ist und jedes Element als Array getrennt von "|" steht
             // wobei ich 2 gar nicht brauche, da beim Laden ja auch die fertige Übung als String reicht
             var currentExerciseElementNames=""
-            var currentExerciseElementsInLine= ""
-            val loadedSavedExercisesAsString=UserSettings().readFromFile(context,"savedExercises")
-            var allSavedExercises=loadedSavedExercisesAsString
+            //var currentExerciseElementsInLine= ""
+            var loadedSavedExercisesAsString=UserSettings().readFromFile(context,"savedExercises")
+            if (loadedSavedExercisesAsString.startsWith("\n__________\n",true){
+                loadedSavedExercisesAsString=loadedSavedExercisesAsString.substring(11)
+            }
+            var allSavedExercises=loadedSavedExercisesAsString.substring(3)
 
             for (element in newExercise){
                 val firstPart=element.first
                 val secondPart=element.second
                 currentExerciseElementNames+="$firstPart\n"
-                currentExerciseElementsInLine=currentExerciseElementsInLine+element+" | "
+                //currentExerciseElementsInLine=currentExerciseElementsInLine+element+" | "
 
 
             }
-            allSavedExercises+= "__________\n"+currentExerciseElementNames//currentExerciseElementsInLine
+            allSavedExercises+= "__________\n"+currentExerciseElementNames
+            allSavedExercises=allSavedExercises.replace("__________\n__________\n","")
+            println("______ AllSavedExercises: $allSavedExercises")
             //UserSettings().writeToFile(context,exercisesToSaveAsString,"savedExercises")
             //newExercise.toString()
 
@@ -601,7 +606,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             }
             R.id.nav_send -> {
-
+                UserSettings().writeToFile(applicationContext,"","savedExercises")
             }
             R.id.btn_new_exercise -> {
 
