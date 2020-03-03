@@ -196,6 +196,20 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
     var continuousMode = false
     var cameToSave: String? = ""
+    var exerciseString = ""
+    //var previousExerciseString = "TEST"
+
+    fun getPreviousExerciseString(): String{
+        val previousExerciseString = UserSettings().readFromFile(applicationContext,"lastExercise")
+        return previousExerciseString
+    }
+    /*
+    fun setPreviousExerciseString(): String{
+        val previousExerciseString =
+                UserSettings().writeToFile(applicationContext,previousExerciseString,"lastExercise")
+        return previousExerciseString
+    }
+    */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //val context: Context = applicationContext
@@ -263,6 +277,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
 
         btn_new_exercise.setOnClickListener {
+            val context =applicationContext
+            UserSettings().writeToFile(context,exerciseString,"lastExercise")
+            println("_________ aktuell ist Endlosmodus $continuousMode")
 
             buttonEffect(btn_new_exercise)
             btn_save_exercise.setImageResource(android.R.drawable.btn_star_big_off)
@@ -272,25 +289,26 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             //val elementList = findViewById<ListView>(R.id.list_elemente_der_uebung)
             val newExercise = generateNewExercise()
-            val length = newExercise.size
-            println("........... Length of newExercise: $length")
+            var length = newExercise.size
+
             val listItems = arrayOfNulls<String>(newExercise.size)
 
-            var exerciseString = ""
+
             for (i in 0 until newExercise.size) {//(element in newExercise){
                 //TextView exercise = findViewById(R.id.exercise)
                 val element = newExercise[i]
                 listItems[i] = element.first //dies ist der String (Name des Elements), der vorne im Pair aus Element und Elementeigenschaften steht
-                exerciseString=exerciseString+"\n"+element.first
+                exerciseString+="\n"+element.first
             }
+            exerciseString=exerciseString.substring(1)
+            length=exerciseString.split("\n").size
+            println("________ exerciseString hat eine Länge von $length")
             exercise.setText(exerciseString)
-            val context =applicationContext
-            UserSettings().writeToFile(context,exerciseString,"lastExercise")
 
-            val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, listItems)
+
+
+            //val adapter = ArrayAdapter(this, android.R.layout.activity_list_item, listItems)
             //listView.adapter = MyCustomAdapter(this)
-
-
         }
 
 
@@ -331,6 +349,17 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             intent.putExtra("cameToSave", "true")
             startActivity(intent)
 
+
+        }
+
+
+
+        btn_previousExercise.setOnClickListener{
+
+            btn_previousExercise.background.setColorFilter(Color.argb(255,63,81,181), PorterDuff.Mode.SRC_ATOP)//btn_previousExercise.setBackgroundColor(#0000)
+            var previousExerciseString=getPreviousExerciseString()
+            previousExerciseString=previousExerciseString.substring(2)
+            exercise.setText(previousExerciseString)
 
         }
 
@@ -391,22 +420,21 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
     private fun generateNewExercise():MutableList<Pair<String,Array<Any>>> {
 
+        btn_previousExercise.background.clearColorFilter()
+
+
         // Mode for adding elements to the exercise or creating always a new one of 10
-
-
         val sw = findViewById(R.id.continuousExerciseSwitch) as Switch
         sw.setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
                 true -> continuousMode=true // The toggle is enabled
                 false -> continuousMode = false // The toggle is disabled
             }
-
-
         }
-
 
         if (!continuousMode){
             newExercise.clear()
+            exerciseString=""
         }
         exercise.visibility = View.VISIBLE
         //exercise.setVisibity()

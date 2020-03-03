@@ -56,6 +56,16 @@
     <include layout="@layout/content_main_screen" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_previousExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_save_exercise"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#000000"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_new_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +79,8 @@
         android:id="@+id/btn_save_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btn_new_exercise"
-        android:layout_gravity="bottom"
+
+        android:layout_gravity="center|bottom"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="#000000"
         app:fabSize="mini"
@@ -80,7 +90,7 @@
         android:id="@+id/continuousExerciseSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_gravity="bottom|start|center_horizontal"
         android:text="Endlosmodus"
 
         />
