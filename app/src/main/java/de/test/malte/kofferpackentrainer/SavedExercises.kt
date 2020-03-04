@@ -7,17 +7,17 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
+import android.widget.CompoundButton
 import android.widget.ListView
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_saved_exercises.*
-import kotlinx.android.synthetic.main.activity_saved_exercises.toolbar
-import kotlinx.android.synthetic.main.content_saved_exercises.*
+
 
 class SavedExercises : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_exercises)
+
         //setSupportActionBar(toolbar)
 
         val extras = intent.extras
@@ -51,7 +51,7 @@ class SavedExercises : AppCompatActivity() {
 
         var listview = findViewById<ListView>(R.id.listView)
         listview.adapter = MyAdapter2(this, R.layout.saved_exercises, list)
-
+        listView.setSelection(listview.adapter.getCount() - 1);
 
         /*
         val savedExercise = currentExercise.split(",")
@@ -144,6 +144,25 @@ class SavedExercises : AppCompatActivity() {
             println("___________ Sende cameToSave mit Wert: $cameToSave")
             startActivity(intent)
         }
+
+
+        //NULL OBJECT REFERENCE BEI selectedListElements[i]
+        checkBoxAll.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener() { buttonView, isChecked ->
+            if (isChecked) {
+                println("____________________CHECKBOX ISCHECKED")
+                for (i in 0 until listView.count) {
+                    println("_____aktueller i-Wert: $i")
+                    val listItem = listView.getItemAtPosition(i)
+                    selectedListElements[i] = 1
+                    listview.getChildAt(i).setBackgroundColor(Color.GRAY)
+                }
+            } else if (!isChecked) {
+                //caller.updateClickedUsername(currentJson, false) // Delete from the List
+                //Log.d("Deleted click ", "nok")
+            }
+            //if (checkBoxAll.isChecked){
+        })
+
 
     }
 }

@@ -20,5 +20,7 @@
     <string name="username">USER</string>
     <string name="title_activity_saved_exercises">SavedExercises</string>
     <string name="placeholder_saved_exercises">Hier werden die gespeicherten Übungen angezeigt</string>
+    <string name="title_activity_import_exercises">ImportExercises</string>
+    <string name="importGreeting">Hier tippen und die zu importierenden Übungen einfügen.</string>
 
 </resources>

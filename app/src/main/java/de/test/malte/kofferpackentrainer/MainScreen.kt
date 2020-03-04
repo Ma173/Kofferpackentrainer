@@ -2,13 +2,10 @@ package de.test.malte.kofferpackentrainer
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -330,9 +327,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             var currentExerciseElementNames=""
             //var currentExerciseElementsInLine= ""
             var loadedSavedExercisesAsString=UserSettings().readFromFile(context,"savedExercises")
-            if (loadedSavedExercisesAsString.startsWith("\n__________\n",true){
+            /*if (loadedSavedExercisesAsString.startsWith("\n__________\n",true){
                 loadedSavedExercisesAsString=loadedSavedExercisesAsString.substring(11)
-            }
+            }*/
             var allSavedExercises=loadedSavedExercisesAsString.substring(3)
 
             for (element in newExercise){
@@ -344,7 +341,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             }
             allSavedExercises+= "__________\n"+currentExerciseElementNames
-            allSavedExercises=allSavedExercises.replace("__________\n__________\n","")
+            allSavedExercises=allSavedExercises.replace("\n__________\n","\n")
             println("______ AllSavedExercises: $allSavedExercises")
             //UserSettings().writeToFile(context,exercisesToSaveAsString,"savedExercises")
             //newExercise.toString()
@@ -363,7 +360,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             btn_previousExercise.background.setColorFilter(Color.argb(255,63,81,181), PorterDuff.Mode.SRC_ATOP)//btn_previousExercise.setBackgroundColor(#0000)
             var previousExerciseString=getPreviousExerciseString()
-            previousExerciseString=previousExerciseString.substring(2)
+            if (previousExerciseString!=""){
+                previousExerciseString=previousExerciseString.substring(1)
+            }
+
             exercise.setText(previousExerciseString)
 
         }
@@ -588,13 +588,15 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_importExercises -> {
                 // Übung importieren
+                val intent = Intent(this, ImportExercises::class.java)
+                startActivity(intent)
             }
             R.id.nav_gallery -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_savedExercises -> {
                 // Navigation zu den gespeicherten Übungen
                 val intent = Intent(this,SavedExercises::class.java)
                 startActivity(intent)
@@ -605,7 +607,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             R.id.nav_share -> {
 
             }
-            R.id.nav_send -> {
+            R.id.nav_deleteAllSavedExercises -> {
                 UserSettings().writeToFile(applicationContext,"","savedExercises")
             }
             R.id.btn_new_exercise -> {

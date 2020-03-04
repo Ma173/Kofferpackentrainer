@@ -28,6 +28,16 @@
                 android:text="speichern und zurück"
                 android:visibility="visible" />
 
+            <CheckBox
+                android:id="@+id/checkBoxAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="end"
+                android:layout_marginStart="250dp"
+                android:gravity="fill_vertical"
+                android:text="alle markieren" />
+
         </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>

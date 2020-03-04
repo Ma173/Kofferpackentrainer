@@ -5,11 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_savedExercises"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Gespeicherte Übungen" />
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_importExercises"
             android:icon="@android:drawable/stat_sys_download"
             android:title="Übung importieren" />
         <item
@@ -30,7 +30,7 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_deleteAllSavedExercises"
                 android:icon="@android:drawable/stat_sys_warning"
                 android:title="Gesp. Übungen löschen" />
         </menu>
