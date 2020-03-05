@@ -136,6 +136,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
     fun getDeactivatedElementsArray():List<String>{
         //val currentUser = getSharedPreferences("currentUser",0)
+        val sizeOfAllElementArrays = 4 + elementeAusStand.size+elementeAusSitz.size+elementeAusRuecken.size+elementeAusBauch.size
         val context=getContext()
         val filename =currentUser+"_deactivatedElementsFile"
         //println("$filename ist der Dateiname ************")
@@ -518,18 +519,20 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             elementId = newElement.second[4]
             println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
             // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
-            while (deactivatedElementsArrayClean[elementId as Int] <= 0) {//(elementArray[elementId as Int]==0){
-                var wertImArray = elementArray[elementId as Int]
-                //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
-                println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
-                newElement = getNewElement(letztesElement)
-                elementId = newElement.second[4]
+            if (jumpsInExercise <9) {
+                while (deactivatedElementsArrayClean[elementId as Int] <= 0) {//(elementArray[elementId as Int]==0){
+                    var wertImArray = elementArray[elementId as Int]
+                    //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                    println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
+                    newElement = getNewElement(letztesElement)
+                    elementId = newElement.second[4]
 
-                wertImArray = elementArray[elementId as Int]
-                //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
-                println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
+                    wertImArray = elementArray[elementId as Int]
+                    //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                    println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
+                }
             }
-            if (jumpsInExercise == 9) {
+            else if (jumpsInExercise == 9) {
                 while (deactivatedElementsArrayClean[elementId as Int] <= 0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
                     val letzteselement = newElement.second[2]//zur Info
                     var wertImArray = elementArray[elementId as Int]
