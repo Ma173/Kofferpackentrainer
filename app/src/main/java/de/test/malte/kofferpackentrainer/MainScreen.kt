@@ -557,6 +557,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
             }
+            // If-Abfrage für letzte Übung -> damit am Ende eine Übung in den Stand kommt
             else if (jumpsInExercise == 9) {
                 while (deactivatedElementsArrayClean[elementId as Int] <= 0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
                     val letzteselement = newElement.second[2]//zur Info
