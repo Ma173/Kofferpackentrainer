@@ -514,7 +514,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                         }
                 "1" -> {
 
-                    println("Füge Aktiviertes Element zu cleanArray hinzu: Id ist $index")
+                    println("Füge Aktiviertes Element zu cleanArray hinzu: Id ist $index, Name ist $element")
                     deactivatedElementsArrayClean.set(index,element.toInt())
                     currentCount+=1
                         }
