@@ -1,5 +1,6 @@
 package de.test.malte.kofferpackentrainer
 
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -7,11 +8,16 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.ListView
+import android.widget.Switch
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.app_bar_main_screen.*
 import kotlinx.android.synthetic.main.content_main_screen.*
@@ -152,7 +158,12 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         }
         else{
             val deactivatedElementsArray =intArrayOf(-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, -1, 1, 1, 1, 1, 1, 1)
-            UserSettings().setDeactivatedElementsToSkill("medium",deactivatedElementsArray)
+            var userSkill = ""
+            userSkill =UserSettings().readFromFile(context,"lastSessionUserSkill")
+            if (userSkill !=""){
+                UserSettings().setDeactivatedElementsToSkill(userSkill,deactivatedElementsArray)
+            }
+
             deactivatedElementsList = mutableListOf<String>()
             for (element in deactivatedElementsArray){
                 deactivatedElementsList.add(element.toString())
@@ -170,8 +181,12 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         lastSessionUserName=UserSettings().readFromFile(context,"lastSessionUserName")
         if (lastSessionUserName==""){
             lastSessionUserName="defaultUser"
+            println("_______________________________________ no lastSessionUserName found. Setting to defaultUser")
         }
-        println("_______________________________________Loaded current user: $lastSessionUserName")
+        else{
+            println("_______________________________________User found. Loaded current user: $lastSessionUserName")
+        }
+
         return lastSessionUserName
     }
 
@@ -213,7 +228,18 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //val context: Context = applicationContext
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+        //val actionBar : ActionBar = getSupportActionBar()
+                //getSupportActionBar().setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false);
+
+
+        //val actionBar = getSupportActionBar()
+        //actionBar.setDisplayShowTitleEnabled(false);
+
 
         if (savedInstanceState != null){
             var x = savedInstanceState.getBoolean("visibility")
@@ -234,7 +260,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
 
         firstTime()
-
 
         currentUser=getLastSessionUserName().replace("\\s".toRegex(),"")
         println("_____________current User is: $currentUser")
