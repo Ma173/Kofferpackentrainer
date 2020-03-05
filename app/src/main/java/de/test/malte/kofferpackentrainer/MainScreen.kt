@@ -520,15 +520,15 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 }
             }
             else if (newExercise.size>0) {
-                val letztesElement=newExercise[newExercise.lastIndex]
-                newElement = getNewElement(letztesElement.second[2].toString()) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
+                val letztesElement=newExercise[newExercise.lastIndex].second.toString()
+                newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
                 elementId = newElement.second[4]
                 println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
                 while (deactivatedElementsArrayClean[elementId as Int]==0){//(elementArray[elementId as Int]==0){
                     var wertImArray = elementArray[elementId as Int]
                     //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
-                    newElement = getNewElement(letztesElement.second[2].toString())
+                    newElement = getNewElement(letztesElement)
                     elementId = newElement.second[4]
 
                     wertImArray = elementArray[elementId as Int]
@@ -540,7 +540,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                         val letzteselement= newElement.second[2]//zur Info
                         var wertImArray = elementArray[elementId as Int]
                         println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
-                        newElement = getNewElement(letztesElement.second[2].toString())
+                        newElement = getNewElement(letztesElement)
                         elementId = newElement.second[4]
                         wertImArray = elementArray[elementId as Int]
                         println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
