@@ -502,59 +502,54 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         for (element in deactivatedElementsArrayClean){
             print(element)
         }
-        while (jumpsInExercise<10){
+        var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
+        while (jumpsInExercise<10) {
             println("\n\n ----------------------------------------")
-            var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
-            var elementArray=UserSettings().elementArray
+
+            var elementArray = UserSettings().elementArray
             var elementId = newElement.second[4]
+            var letztesElement = "Stand"
 
-            if (newExercise.size==0){
-                newElement = getNewElement("Stand")
-                if (newElement.second[4] is Int){elementId = newElement.second[4]}
 
-                println("+ Erste gezogene Id ist: $elementId. Das Element ist $newElement")
-
-                while (deactivatedElementsArrayClean[elementId as Int]==0){//(elementArray[elementId as Int]==0){ //while (elementId in gesperrte){
-                    newElement = getNewElement("Stand")
-                    elementId = newElement.second[4]
-                }
+            if (newExercise.size > 0) {
+                letztesElement = newExercise[newExercise.lastIndex].second.toString()
             }
-            else if (newExercise.size>0) {
-                val letztesElement=newExercise[newExercise.lastIndex].second.toString()
-                newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
+            newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
+            elementId = newElement.second[4]
+            println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
+            // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
+            while (deactivatedElementsArrayClean[elementId as Int] <= 0) {//(elementArray[elementId as Int]==0){
+                var wertImArray = elementArray[elementId as Int]
+                //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
+                newElement = getNewElement(letztesElement)
                 elementId = newElement.second[4]
-                println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
-                while (deactivatedElementsArrayClean[elementId as Int]==0){//(elementArray[elementId as Int]==0){
+
+                wertImArray = elementArray[elementId as Int]
+                //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
+                println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
+            }
+            if (jumpsInExercise == 9) {
+                while (deactivatedElementsArrayClean[elementId as Int] <= 0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
+                    val letzteselement = newElement.second[2]//zur Info
                     var wertImArray = elementArray[elementId as Int]
-                    //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
-                    println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
+                    println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
                     newElement = getNewElement(letztesElement)
                     elementId = newElement.second[4]
-
                     wertImArray = elementArray[elementId as Int]
-                    //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
-                if (jumpsInExercise==9){
-                    while (deactivatedElementsArrayClean[elementId as Int]==0 || newElement.second[2]!="Stand"){//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
-                        val letzteselement= newElement.second[2]//zur Info
-                        var wertImArray = elementArray[elementId as Int]
-                        println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
-                        newElement = getNewElement(letztesElement)
-                        elementId = newElement.second[4]
-                        wertImArray = elementArray[elementId as Int]
-                        println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
-                    }
-                }
-
             }
-            newExercise.add(newElement)
-            jumpsInExercise+=1
-        }
 
+            newExercise.add(newElement)
+            jumpsInExercise += 1
+        }
         return newExercise
 
-    }
+        }
+
+
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
