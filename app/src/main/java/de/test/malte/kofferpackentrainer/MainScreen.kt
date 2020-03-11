@@ -486,10 +486,10 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //println("Der zweite Eintrag von deactivatedElementsArray ist $erster mit dem Typ $typErster. Länge des Arrays/ der Liste ist: $laenge\n\n")
         var currentCount=0
 
-        for (element in deactivatedElementsArray){//for ((index,value) in deactivatedElementsArray.withIndex()){
+        for (elementActivation in deactivatedElementsArray){//for ((index,value) in deactivatedElementsArray.withIndex()){
 
             val index = currentCount
-            val element=element.replace("\\s".toRegex(),"")
+            val element=elementActivation.replace("\\s".toRegex(),"")
             //println("Gehe durch das deactivatedElementsArray. Aktueller count: $currentCount. Aktuelles Element: $element")
             /*if (element=="\n[-1"){
                 println("ääääääääääääääääääääääääää Element ist: [-1")
@@ -529,18 +529,23 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             print(element)
         }
         var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
+        //var letztesElement = "Stand"
         while (jumpsInExercise<10) {
             println("\n\n ----------------------------------------")
 
             var elementArray = UserSettings().elementArray
             var elementId = newElement.second[4]
-            var letztesElement = "Stand"
+            //var letztesElement= newElement.second[2].Arrays.toString()
+            var letztesElement = listOf(newElement.second).toString()
+            println("€€€€€€€€ Letztes Element: $letztesElement")
+            //[2].toString()
 
 
             if (newExercise.size > 0) {
                 letztesElement = newExercise[newExercise.lastIndex].second.toString()
             }
             newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
+            println(":::::::::::: Letztes Element ist:$letztesElement, daher ist das neue Element: $newElement")
             elementId = newElement.second[4]
             println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
             // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
