@@ -148,7 +148,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //println("$filename ist der Dateiname ************")
         var deactivatedElementsFile = ""
         var deactivatedElementsList = listOf<String>()//mutableListOf<String>()
-        var outputListString =""
 
         deactivatedElementsFile =UserSettings().readFromFile(context,filename)
 
@@ -262,7 +261,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         firstTime()
 
         currentUser=getLastSessionUserName().replace("\\s".toRegex(),"")
-        println("_____________current User is: $currentUser")
         subtitle.text = currentUser
 
         /*val extras = intent.extras
@@ -482,10 +480,19 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         var currentCount=0
         // Bereinigung des DeactivatedElementArrays
         for (elementActivation in deactivatedElementsArray){//for ((index,value) in deactivatedElementsArray.withIndex()){
-            val index = currentCount
+            val index : Int = currentCount
             val element=elementActivation.replace("\\s".toRegex(),"")
-            //println("Gehe durch das deactivatedElementsArray. Aktueller count: $currentCount. Aktuelles Element: $element")
-            /*if (element=="\n[-1"){
+            var elementName : String
+            /*when {
+                index<elementeAusStand[elementeAusStand.size] -> elementName=elementeAusStand.toList()[index].toString()
+                index>elementeAusStand.size && index<elementeAusSitz.size -> elementName=elementeAusStand.toList()[index].toString()
+                index>elementeAusSitz.size && index<elementeAusRuecken.size -> elementName=elementeAusStand.toList()[index].toString()
+                index>elementeAusRuecken.size && index<elementeAusBauch.size -> elementName=elementeAusStand.toList()[index].toString()
+            }
+            */
+
+            /*println("Gehe durch das deactivatedElementsArray. Aktueller count: $currentCount. Aktuelles Element: $element")
+            if (element=="\n[-1"){
                 println("ääääääääääääääääääääääääää Element ist: [-1")
             }*/
             when (element){
@@ -522,40 +529,39 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //var letztesElement = "Stand"
         while (jumpsInExercise<10) {
             println("\n\n ----------------------------------------")
-
             //var elementId: Any// vorher: newElement.second[4]
             //println("€€€€€€€€ Letztes Element: $letztesElement")
             //[2].toString()
+            // Festlegen des letzten Elements, sofern die Übung mindestens ein Element beinhaltet
             if (newExercise.size > 0) {letztesElement = newExercise[newExercise.lastIndex].second.toString()}
             newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
-            elementId = newElement.second[4]
             //println(":::::::::::: Letztes Element ist:$letztesElement, daher ist das neue Element: $newElement")
             elementId = newElement.second[4]
+            var wertImArray = deactivatedElementsArrayClean[elementId as Int]
             println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
+
             // Neugenerierung des newElement, wenn das zuvor generierte Element deaktiviert ist (deactivatedElementsArrayClean = 1 ist)
             // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
-            if (jumpsInExercise <9) {
-                while (deactivatedElementsArrayClean[elementId as Int] != 0) {//(elementArray[elementId as Int]==0){
-                    var wertImArray = elementArray[elementId as Int]
+            if (jumpsInExercise ==11){//<9) {
+                while (deactivatedElementsArrayClean[elementId as Int] == 1) {//(elementArray[elementId as Int]==0){
                     //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
                     newElement = getNewElement(letztesElement)
                     elementId = newElement.second[4]
 
-                    wertImArray = elementArray[elementId as Int]
+                    wertImArray = deactivatedElementsArrayClean[elementId as Int]
                     //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
             }
             // If-Abfrage für letzte Übung -> damit am Ende eine Übung in den Stand kommt
-            else if (jumpsInExercise == 9) {
-                while (deactivatedElementsArrayClean[elementId as Int] != 0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
+            else if (jumpsInExercise ==11){//== 9) {
+                while (deactivatedElementsArrayClean[elementId as Int] ==1 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
                     val letzteselement = newElement.second[2]//zur Info
-                    var wertImArray = elementArray[elementId as Int]
                     println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
                     newElement = getNewElement(letztesElement)
                     elementId = newElement.second[4]
-                    wertImArray = elementArray[elementId as Int]
+                    wertImArray = deactivatedElementsArrayClean[elementId as Int]
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
             }
