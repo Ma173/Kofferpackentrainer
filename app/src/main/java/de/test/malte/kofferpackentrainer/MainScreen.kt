@@ -148,17 +148,17 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //println("$filename ist der Dateiname ************")
         var deactivatedElementsFile = ""
         var deactivatedElementsList = listOf<String>()//mutableListOf<String>()
-
-        val sharedPref = MainScreen().getPreferences(Context.MODE_PRIVATE)
-        val defaultValue = resources.getInt("deactivatedElementsArray")
-        val deactivatedElementsFromSharedPref = sharedPref.getInt(getString(R.string.))
+        //TODO: Auf SharedPreferences für Speichern und Laden umstellen!?
+        //val sharedPref = MainScreen().getPreferences(Context.MODE_PRIVATE)
+        //val defaultValue = resources.getInt("deactivatedElementsArray")
+        //val deactivatedElementsFromSharedPref = sharedPref.getInt(getString(R.string.))
         deactivatedElementsFile =UserSettings().readFromFile(context,filename)
 
         if (deactivatedElementsFile!=""){
             deactivatedElementsList = deactivatedElementsFile.split(",")
-            println("------------------------- loaded deactivatedElementsFile: $deactivatedElementsList")
+            println("------------------------- ✅ loaded deactivatedElementsFile: $deactivatedElementsList")
         }
-        else{
+        else if(deactivatedElementsFile==""){
             val deactivatedElementsArray =intArrayOf(-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, -1, 1, 1, 1, 1, 1, 1)
             var userSkill = ""
             userSkill =UserSettings().readFromFile(context,"lastSessionUserSkill")
@@ -171,7 +171,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                 deactivatedElementsList.add(element.toString())
             }
 
-            println("_________________ no deactivatedElementsFile found. Setting to default: $deactivatedElementsList")
+            println("_________________ ❌ no deactivatedElementsFile found. Setting to default: $deactivatedElementsList")
         }
 
         return deactivatedElementsList
@@ -180,13 +180,13 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     fun getLastSessionUserName():String{
         var lastSessionUserName: String = ""
         val context=getContext()
-        lastSessionUserName=UserSettings().readFromFile(context,"lastSessionUserName")
+        lastSessionUserName=UserSettings().readFromFile(context,"lastSessionUserName").replace("\\s".toRegex(),"")
         if (lastSessionUserName==""){
             lastSessionUserName="defaultUser"
-            println("_______________________________________ no lastSessionUserName found. Setting to defaultUser")
+            println("_______________________________________ ❌ no lastSessionUserName found. Setting to defaultUser")
         }
         else{
-            println("_______________________________________User found. Loaded current user: $lastSessionUserName")
+            println("_______________________________________✅ User found. Loaded current user: $lastSessionUserName")
         }
 
         return lastSessionUserName

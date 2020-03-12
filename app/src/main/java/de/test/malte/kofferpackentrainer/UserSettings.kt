@@ -445,12 +445,13 @@ class UserSettings : AppCompatActivity() {
                 println("______________________________________WRITING CURRENT USERNAME TO FILE: $currentUserName")
                 writeToFile(context,currentUserName,"lastSessionUserName")
 
+                /*
                 val sharedPref = UserSettings().getPreferences(Context.MODE_PRIVATE) ?: return@setOnClickListener
                 with (sharedPref.edit()) {
                     putString("deactivatedElementsArray", deactivatedElementsArrayString)
                     commit()
                 }
-
+                */
 
                 val intent = Intent(this, MainScreen::class.java)
                 intent.putExtra("currentUser", currentUserName)
