@@ -453,16 +453,13 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
         btn_previousExercise.background.clearColorFilter()
 
-
         // Mode for adding elements to the exercise or creating always a new one of 10
         val sw = findViewById(R.id.continuousExerciseSwitch) as Switch
         sw.setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
                 true -> continuousMode=true // The toggle is enabled
                 false -> continuousMode = false // The toggle is disabled
-            }
-        }
-
+            }}
         if (!continuousMode){
             newExercise.clear()
             exerciseString=""
@@ -473,8 +470,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         val deactivatedElementsArray = getDeactivatedElementsArray()
         /*var gesperrteElemente = arrayListOf<Int>()
         val elementArray = UserSettings().elementArray
-
-
         val gesperrte = arrayOf(11, 24, 39, 40)*/
 
         val deactivatedElementsArrayClean = IntArray(deactivatedElementsArray.size)//.size-4)
@@ -485,9 +480,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         val laenge = deactivatedElementsArray.size
         //println("Der zweite Eintrag von deactivatedElementsArray ist $erster mit dem Typ $typErster. Länge des Arrays/ der Liste ist: $laenge\n\n")
         var currentCount=0
-
+        // Bereinigung des DeactivatedElementArrays
         for (elementActivation in deactivatedElementsArray){//for ((index,value) in deactivatedElementsArray.withIndex()){
-
             val index = currentCount
             val element=elementActivation.replace("\\s".toRegex(),"")
             //println("Gehe durch das deactivatedElementsArray. Aktueller count: $currentCount. Aktuelles Element: $element")
@@ -496,61 +490,52 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             }*/
             when (element){
                 "-1" -> {
-                        println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
-                        //deactivatedElementsArrayClean[index] = element.toInt()
+                        println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")//deactivatedElementsArrayClean[index] = element.toInt()
                         }
                 "\n[-1" -> {
-                    println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
-                    //deactivatedElementsArrayClean.set(index,element.toInt())
+                    println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")//deactivatedElementsArrayClean.set(index,element.toInt())
                         }
                 "-1]" -> {
                     println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
-                    deactivatedElementsArrayClean.set(index,element.toInt())
-                        }
+                    deactivatedElementsArrayClean.set(index,element.toInt())}
                 "0" -> {
                     println("----Füge deaktiviertes Element zu cleanArray hinzu: Id ist $index")
                     deactivatedElementsArrayClean.set(index,element.toInt())
-                    currentCount+=1
-                        }
+                    currentCount+=1}
+
                 "1" -> {
 
                     println("Füge Aktiviertes Element zu cleanArray hinzu: Id ist $index, Name ist $element")
                     deactivatedElementsArrayClean.set(index,element.toInt())
-                    currentCount+=1
-                        }
-
-
+                    currentCount+=1}
+                }
             }
-
-        }
         val deactivatedElementsArrayCleanString = deactivatedElementsArrayClean.toString()
         println("cleaned deactivatedElementsArray:")// $deactivatedElementsArrayCleanString")
         for (element in deactivatedElementsArrayClean){
-            print(element)
+            print("$element ")
         }
         var newElement : Pair<String,Array<Any>> = "Hocke" to arrayOf(0, "Stand", "Stand", 0,0) //default-Element (Hocke) zum Initialisieren der Variable verwendet
+        var letztesElement = listOf(newElement.second).toString() //var letztesElement= newElement.second[2].Arrays.toString()
+        var elementId = newElement.second[4]
+        val elementArray = UserSettings().elementArray
         //var letztesElement = "Stand"
         while (jumpsInExercise<10) {
             println("\n\n ----------------------------------------")
 
-            var elementArray = UserSettings().elementArray
-            var elementId = newElement.second[4]
-            //var letztesElement= newElement.second[2].Arrays.toString()
-            var letztesElement = listOf(newElement.second).toString()
-            println("€€€€€€€€ Letztes Element: $letztesElement")
+            //var elementId: Any// vorher: newElement.second[4]
+            //println("€€€€€€€€ Letztes Element: $letztesElement")
             //[2].toString()
-
-
-            if (newExercise.size > 0) {
-                letztesElement = newExercise[newExercise.lastIndex].second.toString()
-            }
+            if (newExercise.size > 0) {letztesElement = newExercise[newExercise.lastIndex].second.toString()}
             newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
-            println(":::::::::::: Letztes Element ist:$letztesElement, daher ist das neue Element: $newElement")
+            elementId = newElement.second[4]
+            //println(":::::::::::: Letztes Element ist:$letztesElement, daher ist das neue Element: $newElement")
             elementId = newElement.second[4]
             println("+ Aktuell gezogene Id ist: $elementId. Das Element ist $newElement")
+            // Neugenerierung des newElement, wenn das zuvor generierte Element deaktiviert ist (deactivatedElementsArrayClean = 1 ist)
             // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
             if (jumpsInExercise <9) {
-                while (deactivatedElementsArrayClean[elementId as Int] <= 0) {//(elementArray[elementId as Int]==0){
+                while (deactivatedElementsArrayClean[elementId as Int] != 0) {//(elementArray[elementId as Int]==0){
                     var wertImArray = elementArray[elementId as Int]
                     //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
@@ -564,7 +549,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             }
             // If-Abfrage für letzte Übung -> damit am Ende eine Übung in den Stand kommt
             else if (jumpsInExercise == 9) {
-                while (deactivatedElementsArrayClean[elementId as Int] <= 0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
+                while (deactivatedElementsArrayClean[elementId as Int] != 0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
                     val letzteselement = newElement.second[2]//zur Info
                     var wertImArray = elementArray[elementId as Int]
                     println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
