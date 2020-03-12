@@ -149,6 +149,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         var deactivatedElementsFile = ""
         var deactivatedElementsList = listOf<String>()//mutableListOf<String>()
 
+        val sharedPref = MainScreen().getPreferences(Context.MODE_PRIVATE)
+        val defaultValue = resources.getInt("deactivatedElementsArray")
+        val deactivatedElementsFromSharedPref = sharedPref.getInt(getString(R.string.))
         deactivatedElementsFile =UserSettings().readFromFile(context,filename)
 
         if (deactivatedElementsFile!=""){
