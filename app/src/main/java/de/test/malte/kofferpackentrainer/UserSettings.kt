@@ -346,7 +346,8 @@ class UserSettings : AppCompatActivity() {
         val filenameRead = currentUserName + "_deactivatedElementsFile"
         val loadedStringOfDeactivatedElements = readFromFile(context, filenameRead)
         val loadedStringArray = loadedStringOfDeactivatedElements.split(",").toTypedArray()
-        println("**********************LOADED STRING ARRAY $loadedStringArray")
+        val loadedStringArrayString = loadedStringArray.joinToString (" ")
+        println("**********************LOADED STRING ARRAY $loadedStringArrayString")
         for (index in loadedStringArray.indices) {
             val element=loadedStringArray[index].replace("\\s".toRegex(),"")
             if (element=="1"||element=="0"){

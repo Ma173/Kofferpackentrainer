@@ -154,6 +154,9 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         //val deactivatedElementsFromSharedPref = sharedPref.getInt(getString(R.string.))
         deactivatedElementsFile =UserSettings().readFromFile(context,filename)
 
+        val filenameRead = currentUser + "_deactivatedElementsFile"
+        val loadedStringOfDeactivatedElements = UserSettings().readFromFile(context, filenameRead)
+
         if (deactivatedElementsFile!=""){
             deactivatedElementsList = deactivatedElementsFile.split(",")
             println("------------------------- ✅ loaded deactivatedElementsFile: $deactivatedElementsList")
@@ -557,8 +560,6 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             // Neugenerierung des newElement, wenn das zuvor generierte Element deaktiviert ist (deactivatedElementsArrayClean = 1 ist)
             // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
             if (jumpsInExercise <9) {//==11){//
-                val elementidInt = elementId as Int
-                print("_____________ CURRENT ELEMENTID: $elementidInt")
                 wertImArray = deactivatedElementsArrayClean[elementId]
                 println("___Wert im Array: $wertImArray an Position $elementId")
                 Log.i("","___Wert im Array: $wertImArray an Position $elementId")
