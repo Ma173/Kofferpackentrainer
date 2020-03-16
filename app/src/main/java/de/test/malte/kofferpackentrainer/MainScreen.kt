@@ -140,7 +140,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     public var newExercise : MutableList<Pair<String,Array<Any>>> = mutableListOf()
 
 
-    fun getDeactivatedElementsArray():List<String>{
+    private fun getDeactivatedElementsArray():List<String>{
         //val currentUser = getSharedPreferences("currentUser",0)
         val sizeOfAllElementArrays = 4 + elementeAusStand.size+elementeAusSitz.size+elementeAusRuecken.size+elementeAusBauch.size
         val context=getContext()
@@ -357,7 +357,11 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             /*if (loadedSavedExercisesAsString.startsWith("\n__________\n",true){
                 loadedSavedExercisesAsString=loadedSavedExercisesAsString.substring(11)
             }*/
-            var allSavedExercises=loadedSavedExercisesAsString.substring(3)
+            var allSavedExercises =""
+            if (loadedSavedExercisesAsString!=""){
+                allSavedExercises=loadedSavedExercisesAsString.substring(3)
+            }
+
 
             for (element in newExercise){
                 val firstPart=element.first
@@ -507,7 +511,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                         }
                 "-1]" -> {
                     println("Element ist -1 und wird nicht hinzugefügt. Id ist: $index")
-                    deactivatedElementsArrayClean.set(index,element.toInt())}
+                    deactivatedElementsArrayClean[index] = element.toInt()
+                }
                 "0" -> {
                     println("----Füge deaktiviertes Element zu cleanArray hinzu: Id ist $index")
                     deactivatedElementsArrayClean.set(index,element.toInt())
@@ -536,7 +541,11 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             //println("€€€€€€€€ Letztes Element: $letztesElement")
             //[2].toString()
             // Festlegen des letzten Elements, sofern die Übung mindestens ein Element beinhaltet
-            if (newExercise.size > 0) {letztesElement = newExercise[newExercise.lastIndex].second.toString()}
+            if (newExercise.size > 0) {
+                letztesElement = newExercise[newExercise.lastIndex].second[2].toString() //TODO: Problem: LetztesElement liegt nicht als String vor, sondern als Ljava.lang.Object
+                val ganzerName = newExercise[newExercise.lastIndex]
+                println("___Letztes Element ist $letztesElement oder $ganzerName")
+            }
             newElement = getNewElement(letztesElement) //HIER DIE POSITION NACH DEM LETZTEN ELEMENT HOLEN
             //println(":::::::::::: Letztes Element ist:$letztesElement, daher ist das neue Element: $newElement")
             elementId = newElement.second[4]
