@@ -294,6 +294,8 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
 
         btn_jump_to_user_settings.setOnClickListener {
+            val context =applicationContext
+            UserSettings().writeToFile(context,exerciseString,"lastExercise")
             val intent = Intent(this, UserSettings::class.java)
             startActivity(intent)
         }
@@ -542,7 +544,7 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
             //[2].toString()
             // Festlegen des letzten Elements, sofern die Übung mindestens ein Element beinhaltet
             if (newExercise.size > 0) {
-                letztesElement = newExercise[newExercise.lastIndex].second[2].toString() //TODO: Problem: LetztesElement liegt nicht als String vor, sondern als Ljava.lang.Object
+                letztesElement = newExercise[newExercise.lastIndex].second[2].toString()
                 val ganzerName = newExercise[newExercise.lastIndex]
                 println("___Letztes Element ist $letztesElement oder $ganzerName")
             }
@@ -554,21 +556,26 @@ class MainScreen : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
             // Neugenerierung des newElement, wenn das zuvor generierte Element deaktiviert ist (deactivatedElementsArrayClean = 1 ist)
             // Vergleich bei "(deactivatedElementsArrayClean[elementId as Int] <= 0)" auf "<=" geändert von "==", damit auch der Wert "-1" betrachtet wird
-            if (jumpsInExercise ==11){//<9) {
-                while (deactivatedElementsArrayClean[elementId as Int] == 1) {//(elementArray[elementId as Int]==0){
+            if (jumpsInExercise <9) {//==11){//
+                val elementidInt = elementId as Int
+                print("_____________ CURRENT ELEMENTID: $elementidInt")
+                wertImArray = deactivatedElementsArrayClean[elementId]
+                println("___Wert im Array: $wertImArray an Position $elementId")
+                Log.i("","___Wert im Array: $wertImArray an Position $elementId")
+                while (deactivatedElementsArrayClean[elementId as Int] == 0) {//(elementArray[elementId as Int]==0){
                     //Toast.makeText(this, "AltesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ ElementInDerÜbungNr: $jumpsInExercise AltesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.")
                     newElement = getNewElement(letztesElement)
                     elementId = newElement.second[4]
 
-                    wertImArray = deactivatedElementsArrayClean[elementId as Int]
+
                     //Toast.makeText(this, "NeuesElement: Id ist $elementId ", Toast.LENGTH_LONG).show() //"Anzahl gespeicherte User: $lengthUserNames"
                     println("+++++++++++ NeuesElement: Id ist $elementId, Element ist $newElement. Wert im Array ist $wertImArray.\n")
                 }
             }
             // If-Abfrage für letzte Übung -> damit am Ende eine Übung in den Stand kommt
-            else if (jumpsInExercise ==11){//== 9) {
-                while (deactivatedElementsArrayClean[elementId as Int] ==1 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
+            else if (jumpsInExercise == 9) {//==11){//
+                while (deactivatedElementsArrayClean[elementId as Int] ==0 || newElement.second[2] != "Stand") {//(elementArray[elementId as Int]==0 || newElement.second[2]!="Stand"){
                     val letzteselement = newElement.second[2]//zur Info
                     println("****************************************** elementId ist in gesperrte oder das letzte Element ist nicht Stand: $elementId. Hole neues Element")
                     newElement = getNewElement(letztesElement)
